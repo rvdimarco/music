@@ -1,0 +1,14 @@
+*.class
+web-app/WEB-INF/class
+.project
+.classpath
+target
+.settings
+*.log
+*war
+*swp
+*swo
+target-eclipse
+lib/*
+.metadata
+Servers
