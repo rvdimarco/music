@@ -15,6 +15,7 @@ Lista Case Discografiche:<br/><br/>
 	<table>
 		<tr>
 			<td><b/>Nome</b></td><td><b>Sede</b></td>
+			<td>op. 1</td><td>op. 2</td><td>op. 3</td>
 		</tr>
 		
 	<%if(cadilist!=null){
