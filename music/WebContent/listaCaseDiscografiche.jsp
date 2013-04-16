@@ -14,8 +14,9 @@
 Lista Case Discografiche:<br/><br/>
 	<table>
 		<tr>
-			<td><b/>Nome</b></td><td><b>Sede</b></td>
-			<td>op. 1</td><td>op. 2</td><td>op. 3</td>
+			<td><b>Nome</b></td>
+			<td><b>Sede</b></td>
+			<td><b>op.</b></td>
 		</tr>
 		
 	<%if(cadilist!=null){
@@ -25,10 +26,9 @@ Lista Case Discografiche:<br/><br/>
 			cadi = it.next();
 		%>
 			<tr>
-				<td><%=cadi.getNome()%></td><td><%=cadi.getSede()%></td>
-				<td><a href="test.jsp?primo=visualizzando&secondo=<%=cadi.getNome()%>">Visualizza</a></td>
-				<td><a href="test.jsp?primo=modificando&secondo=<%=cadi.getNome()%>">Modifica</a></td>
-				<td><a href="test?primo=eliminando&secondo=<%=cadi.getNome()%>">Elimina</a></td>
+				<td><%=cadi.getNome()%></td>
+				<td><%=cadi.getSede()%></td>
+				<td><a href="visualizzaCasaDiscografica?id=<%=cadi.getNome()%>">Visualizza</a></td>
 			</tr>
 		<%}%>
 	<%}%>		

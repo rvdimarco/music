@@ -1,9 +1,20 @@
 package it.geek.musica.model;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CasaDiscografica {
 
 	private String nome;
 	private String sede;
+	private List<Autore> autori = new ArrayList<Autore>();
+	
+	public void addAutore(Autore a){
+		autori.add(a);
+	}
+	public void removeAutore(Autore a){
+		autori.remove(a);
+	}
 	
 	public String getNome() {
 		return nome;
@@ -18,6 +29,12 @@ public class CasaDiscografica {
 		this.sede = sede;
 	}
 	
+	public List<Autore> getAutori() {
+		return autori;
+	}
+	public void setAutori(List<Autore> autori) {
+		this.autori = autori;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -49,7 +66,8 @@ public class CasaDiscografica {
 	}
 	@Override
 	public String toString() {
-		return "CasaDiscografica [nome=" + nome + ", sede=" + sede + "]";
+		return "CasaDiscografica [nome=" + nome + ", sede=" + sede
+				+ ", autori=" + autori + "]";
 	}
-	
+
 }

@@ -88,4 +88,22 @@ public class UtenteDAO implements IDAO<Utente, String> {
 		return null;
 	}
 
+	@Override
+	public boolean delete(String id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean insert(Utente e) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean update(Utente e) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
 }

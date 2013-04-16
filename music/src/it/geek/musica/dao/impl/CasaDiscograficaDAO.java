@@ -3,79 +3,95 @@ package it.geek.musica.dao.impl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
-
 import it.geek.musica.dao.IDAO;
+import it.geek.musica.model.Autore;
 import it.geek.musica.model.CasaDiscografica;
+import it.geek.musica.util.MyJNDIConnection;
 
 public class CasaDiscograficaDAO implements IDAO<CasaDiscografica, String> {
 
 	@Override
 	public CasaDiscografica findById(String id) {
-		// TODO Auto-generated method stub
-		return null;
+		
+		CasaDiscografica casa = null;
+		
+		Connection c = MyJNDIConnection.getConnection();
+		
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("SELECT  c.nome    as nome_casa, ");
+				sb.append("c.sede    as sede_casa, ");
+				sb.append("a.cf      as cf_autore, ");
+				sb.append("a.nome    as nome_autore, ");
+				sb.append("a.cognome as cognome_autore ");
+		sb.append("FROM case_discografiche c, autori a ");
+		sb.append("WHERE c.nome = a.casa_discografica ");
+		sb.append("AND   c.nome = ?");
+		
+		try{
+			ps = c.prepareStatement(sb.toString());
+			ps.setString(1, id);
+			
+			System.out.println("sql: "+sb.toString());
+			System.out.println("c.nome = "+id);
+			
+			rs = ps.executeQuery();
+			
+			Autore a = null;
+			if(rs.next()){
+				casa = new CasaDiscografica();
+					casa.setNome(rs.getString("nome_casa"));
+					casa.setSede(rs.getString("sede_casa"));
+				a = new Autore();
+					a.setCodiceFiscale(rs.getString("cf_autore"));
+					a.setNome(rs.getString("nome_autore"));
+					a.setCognome(rs.getString("cognome_autore"));
+				casa.addAutore(a);
+			}
+			while(rs.next()){
+				a = new Autore();
+					a.setCodiceFiscale(rs.getString("cf_autore"));
+					a.setNome(rs.getString("nome_autore"));
+					a.setCognome(rs.getString("cognome_autore"));
+				casa.addAutore(a);
+			}
+			
+		}catch(Exception e){
+			System.out.println("errore! "+e);
+			e.printStackTrace();
+			
+		}finally{
+			try {
+				rs.close();
+			} catch (Exception e2) {
+				System.out.println("impossibile chiudere il ResultSet");
+			}
+			try {
+				ps.close();
+			} catch (Exception e2) {
+				System.out.println("impossibile chiudere il PreparedStatement");
+			}
+			try {
+				c.close();
+			} catch (Exception e2) {
+				System.out.println("impossibile chiudere la Connection");
+			}			
+		}
+		
+		return casa;
 	}
 
 	@Override
 	public List<CasaDiscografica> findAll() {
 
-		Connection c = null;
 		List<CasaDiscografica> ret = null;
 		
-		//recupero la connessione
-		try {
-			
-			/*Configurazione DB via JNDI:
-			
-			- [tomcat root]/conf/contex.xml
-			  all'interno del tag <Context>...</Context> inserisco il seguente tag  
-
-		  <Resource name="jdbc/MusicDB" auth="Container" type="javax.sql.DataSource"
-					   maxActive="100" maxIdle="30" maxWait="10000"
-					   username="root" password="root" driverClassName="com.mysql.jdbc.Driver"
-					   url="jdbc:mysql://localhost:3306/music"/>
-					   
-			- [tomcat root]/lib
-			  copiare  all'interno di questa cartella il connettore (jar) (eliminarlo dalla cartella lib della web app)
-
-			- [app root]/WEB-INF/web.xml
-			  all'interno del tag <web-app>...</web-app> inserisco il seguente tag
-			  
-			<resource-ref>
-				<description>Music DB Connection</description>
-			    <res-ref-name>jdbc/MusicDB</res-ref-name>
-			    <res-type>javax.sql.DataSource</res-type>
-			    <res-auth>Container</res-auth>
-			</resource-ref>
-			
-			- per ottenere una connessione dal DataSource effettuo la "lookup" 
-			  (vedi il codice sotto)
-
-			 * */
-			
-			InitialContext cxt = new InitialContext();
-			DataSource ds = (DataSource) cxt.lookup( "java:/comp/env/jdbc/MusicDB" );
-			c = ds.getConnection();
-
-			//Class.forName("com.mysql.jdbc.Driver");
-			//c = DriverManager.getConnection("jdbc:mysql://localhost:3306/music?user=root&password=root");
-			
-		}  catch (NamingException e) {
-			System.out.println("non ho trovato la risorsa!");
-			e.printStackTrace();
-		}/*catch (ClassNotFoundException e) {
-			System.out.println("non ho trovato il driver!");
-			e.printStackTrace();
-		}*/catch (SQLException e) {
-			System.out.println("non ho la connessione!");
-			e.printStackTrace();
-		}
+		Connection c = MyJNDIConnection.getConnection();
 		
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -94,9 +110,11 @@ public class CasaDiscograficaDAO implements IDAO<CasaDiscografica, String> {
 				cadi.setSede(rs.getString("sede"));
 				ret.add(cadi);
 			}
+			
 		}catch(Exception e){
 			System.out.println("errore! "+e);
 			e.printStackTrace();
+			
 		}finally{
 			try {
 				rs.close();
@@ -117,6 +135,24 @@ public class CasaDiscograficaDAO implements IDAO<CasaDiscografica, String> {
 		
 		return ret;
 	
+	}
+
+	@Override
+	public boolean delete(String id) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean insert(CasaDiscografica e) {
+		// TODO Auto-generated method stub
+		return false;
+	}
+
+	@Override
+	public boolean update(CasaDiscografica e) {
+		// TODO Auto-generated method stub
+		return false;
 	}
 
 
