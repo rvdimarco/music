@@ -1,6 +1,6 @@
 package it.geek.musica.model;
 
-public class Utente {
+public class Utente extends Entity {
 	private String username;
 	private String password;
 	private String cognome;

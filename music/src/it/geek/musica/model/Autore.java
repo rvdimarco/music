@@ -1,6 +1,6 @@
 package it.geek.musica.model;
 
-public class Autore {
+public class Autore extends Entity {
 
 	private String codiceFiscale;
 	private String nome;

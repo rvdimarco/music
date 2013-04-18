@@ -16,31 +16,9 @@ import javax.sql.DataSource;
 public class UtenteDAO implements IDAO<Utente, String> {
 
 	@Override
-	public Utente findById(String id) {
+	public Utente findById(String id, Connection c) {
 	
-		Connection c = null;
 		Utente ret = null;
-		
-		//recupero la connessione
-		try {
-			
-			InitialContext cxt = new InitialContext();
-			DataSource ds = (DataSource) cxt.lookup( "java:/comp/env/jdbc/MusicDB" );
-			c = ds.getConnection();
-
-			//Class.forName("com.mysql.jdbc.Driver");
-			//c = DriverManager.getConnection("jdbc:mysql://localhost:3306/music?user=root&password=root");
-			
-		}  catch (NamingException e) {
-			System.out.println("non ho trovato la risorsa!");
-			e.printStackTrace();
-		}/*catch (ClassNotFoundException e) {
-			System.out.println("non ho trovato il driver!");
-			e.printStackTrace();
-		}*/catch (SQLException e) {
-			System.out.println("non ho la connessione!");
-			e.printStackTrace();
-		}
 		
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -72,38 +50,39 @@ public class UtenteDAO implements IDAO<Utente, String> {
 			} catch (Exception e2) {
 				System.out.println("impossibile chiudere il PreparedStatement");
 			}
-			try {
-				c.close();
-			} catch (Exception e2) {
-				System.out.println("impossibile chiudere la Connection");
-			}			
 		}
 		
 		return ret;
 	}
 
 	@Override
-	public List<Utente> findAll() {
+	public List<Utente> findAll(Connection c) {
 		System.out.println("UtenteDAO.findAll::FUNZIONE NON IMPLEMENTATA!");
 		return null;
 	}
 
 	@Override
-	public boolean delete(String id) {
+	public boolean delete(String id, Connection c) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean insert(Utente e) {
+	public boolean insert(Utente e, Connection c) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean update(Utente e) {
+	public boolean update(Utente e, Connection c) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public List<Utente> findByExample(Utente ex, Connection c) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 }

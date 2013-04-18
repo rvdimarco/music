@@ -3,7 +3,11 @@ package it.geek.musica.dao.impl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 import java.util.List;
+
+import org.apache.log4j.BasicConfigurator;
+import org.apache.log4j.Logger;
 
 import it.geek.musica.dao.IDAO;
 import it.geek.musica.model.Autore;
@@ -11,11 +15,12 @@ import it.geek.musica.util.MyJNDIConnection;
 
 public class AutoreDAO implements IDAO<Autore, String> {
 
+	private static Logger logger = Logger.getLogger(AutoreDAO.class);
+	
 	@Override
-	public Autore findById(String id) {
+	public Autore findById(String id, Connection c) {
+		logger.info("AutoreDAO::findById");
 		Autore autore = null;
-		
-		Connection c = MyJNDIConnection.getConnection();
 		
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -31,8 +36,8 @@ public class AutoreDAO implements IDAO<Autore, String> {
 			ps = c.prepareStatement(sb.toString());
 			ps.setString(1, id);
 			
-			System.out.println("sql: "+sb.toString());
-			System.out.println("a.cf = "+id);
+			logger.debug("sql: "+sb.toString());
+			logger.debug("a.cf = "+id);
 			
 			rs = ps.executeQuery();
 			
@@ -45,41 +50,78 @@ public class AutoreDAO implements IDAO<Autore, String> {
 			}
 			
 		}catch(Exception e){
-			System.out.println("errore! "+e);
+			logger.error("errore! "+e);
 			e.printStackTrace();
 			
 		}finally{
 			try {
 				rs.close();
 			} catch (Exception e2) {
-				System.out.println("impossibile chiudere il ResultSet");
+				logger.error("impossibile chiudere il ResultSet");
 			}
 			try {
 				ps.close();
 			} catch (Exception e2) {
-				System.out.println("impossibile chiudere il PreparedStatement");
+				logger.error("impossibile chiudere il PreparedStatement");
 			}
-			try {
-				c.close();
-			} catch (Exception e2) {
-				System.out.println("impossibile chiudere la Connection");
-			}			
 		}
 		
 		return autore;
 	}
 
 	@Override
-	public List<Autore> findAll() {
-		// TODO Auto-generated method stub
-		return null;
+	public List<Autore> findAll(Connection c) {
+		logger.info("AutoreDAO::findAll");
+		List<Autore> autori = null;
+		
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("SELECT  cf, nome, cognome ");
+		sb.append("FROM autori ");
+		
+		try{
+			ps = c.prepareStatement(sb.toString());
+			
+			logger.debug("sql: "+sb.toString());
+			
+			rs = ps.executeQuery();
+			
+			Autore a = null;
+			autori = new ArrayList<Autore>();
+			while(rs.next()){
+				a = new Autore();
+				a.setCodiceFiscale(rs.getString("cf"));
+				a.setNome(rs.getString("nome"));
+				a.setCognome(rs.getString("cognome"));
+				autori.add(a);
+			}
+			
+		}catch(Exception e){
+			logger.error("errore! "+e);
+			e.printStackTrace();
+			
+		}finally{
+			try {
+				rs.close();
+			} catch (Exception e2) {
+				logger.error("impossibile chiudere il ResultSet");
+			}
+			try {
+				ps.close();
+			} catch (Exception e2) {
+				logger.error("impossibile chiudere il PreparedStatement");
+			}
+		}
+		
+		return autori;
 	}
 
 	@Override
-	public boolean delete(String id) {
+	public boolean delete(String id, Connection c) {
+		logger.info("AutoreDAO::delete");
 		boolean wasDeleted = false;
-		
-		Connection c = MyJNDIConnection.getConnection();
 		
 		PreparedStatement ps = null;
 		
@@ -92,8 +134,8 @@ public class AutoreDAO implements IDAO<Autore, String> {
 			ps = c.prepareStatement(sb.toString());
 			ps.setString(1, id);
 			
-			System.out.println("sql: "+sb.toString());
-			System.out.println("a.cf = "+id);
+			logger.debug("sql: "+sb.toString());
+			logger.debug("a.cf = "+id);
 			
 			int deleted = ps.executeUpdate();
 			
@@ -102,30 +144,24 @@ public class AutoreDAO implements IDAO<Autore, String> {
 			}
 			
 		}catch(Exception e){
-			System.out.println("errore! "+e);
+			logger.error("errore! "+e);
 			e.printStackTrace();
 			
 		}finally{
 			try {
 				ps.close();
 			} catch (Exception e2) {
-				System.out.println("impossibile chiudere il PreparedStatement");
+				logger.error("impossibile chiudere il PreparedStatement");
 			}
-			try {
-				c.close();
-			} catch (Exception e2) {
-				System.out.println("impossibile chiudere la Connection");
-			}			
 		}
 		
 		return wasDeleted;
 	}
 
 	@Override
-	public boolean insert(Autore a) {
+	public boolean insert(Autore a, Connection c) {
+		logger.info("AutoreDAO::insert");
 		boolean wasInserted = false;
-		
-		Connection c = MyJNDIConnection.getConnection();
 		
 		PreparedStatement ps = null;
 		
@@ -140,11 +176,11 @@ public class AutoreDAO implements IDAO<Autore, String> {
 			ps.setString(3, a.getCognome());
 			ps.setString(4, a.getCasaDiscografica());
 			
-			System.out.println("sql: "+sb.toString());
-			System.out.println("cf = "+a.getCodiceFiscale());
-			System.out.println("nome = "+a.getNome());
-			System.out.println("cognome = "+a.getCognome());
-			System.out.println("casa_discografica = "+a.getCasaDiscografica());
+			logger.debug("sql: "+sb.toString());
+			logger.debug("cf = "+a.getCodiceFiscale());
+			logger.debug("nome = "+a.getNome());
+			logger.debug("cognome = "+a.getCognome());
+			logger.debug("casa_discografica = "+a.getCasaDiscografica());
 			
 			int inserted = ps.executeUpdate();
 			
@@ -153,30 +189,24 @@ public class AutoreDAO implements IDAO<Autore, String> {
 			}
 			
 		}catch(Exception e){
-			System.out.println("errore! "+e);
+			logger.error("errore! "+e);
 			e.printStackTrace();
 			
 		}finally{
 			try {
 				ps.close();
 			} catch (Exception e2) {
-				System.out.println("impossibile chiudere il PreparedStatement");
+				logger.error("impossibile chiudere il PreparedStatement");
 			}
-			try {
-				c.close();
-			} catch (Exception e2) {
-				System.out.println("impossibile chiudere la Connection");
-			}			
 		}
 		
 		return wasInserted;
 	}
 
 	@Override
-	public boolean update(Autore a) {
+	public boolean update(Autore a, Connection c) {
+		logger.info("AutoreDAO::update");
 		boolean wasUpdated = false;
-		
-		Connection c = MyJNDIConnection.getConnection();
 		
 		PreparedStatement ps = null;
 		
@@ -213,8 +243,8 @@ public class AutoreDAO implements IDAO<Autore, String> {
 			ps.setString(++i, a.getCodiceFiscale());
 			
 			
-			System.out.println("sql: "+sb.toString());
-			System.out.println("autore = "+a);
+			logger.debug("sql: "+sb.toString());
+			logger.debug("autore = "+a);
 			
 			int updated = ps.executeUpdate();
 			
@@ -223,23 +253,26 @@ public class AutoreDAO implements IDAO<Autore, String> {
 			}
 			
 		}catch(Exception e){
-			System.out.println("errore! "+e);
+			logger.error("errore! "+e);
 			e.printStackTrace();
 			
 		}finally{
 			try {
 				ps.close();
 			} catch (Exception e2) {
-				System.out.println("impossibile chiudere il PreparedStatement");
+				logger.error("impossibile chiudere il PreparedStatement");
 			}
-			try {
-				c.close();
-			} catch (Exception e2) {
-				System.out.println("impossibile chiudere la Connection");
-			}			
 		}
 		
 		return wasUpdated;
+	}
+
+	@Override
+	public List<Autore> findByExample(Autore ex, Connection c) {
+		logger.info("AutoreDAO::findByExample");
+		List<Autore> autori = null;
+		
+		return autori;
 	}
 
 }

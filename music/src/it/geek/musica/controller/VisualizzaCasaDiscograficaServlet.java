@@ -2,6 +2,7 @@ package it.geek.musica.controller;
 
 import it.geek.musica.dao.IDAO;
 import it.geek.musica.dao.impl.CasaDiscograficaDAO;
+import it.geek.musica.factory.ServiceFactory;
 import it.geek.musica.model.CasaDiscografica;
 
 import java.io.IOException;
@@ -23,8 +24,9 @@ public class VisualizzaCasaDiscograficaServlet extends HttpServlet {
 			throws ServletException, IOException{
 		
 		String id = request.getParameter("id");
-		IDAO<CasaDiscografica, String> dao = new CasaDiscograficaDAO();
-		CasaDiscografica casa = dao.findById(id);
+		
+		CasaDiscografica casa = ServiceFactory.getCasaDiscograficaService()
+											  .get(id);
 		
 		request.setAttribute("casa",casa);
 		

@@ -1,10 +1,15 @@
 package it.geek.musica.controller;
 
 import it.geek.musica.dao.IDAO;
+import it.geek.musica.dao.impl.AutoreDAO;
 import it.geek.musica.dao.impl.CasaDiscograficaDAO;
 import it.geek.musica.dao.impl.UtenteDAO;
+import it.geek.musica.factory.DaoFactory;
+import it.geek.musica.factory.ServiceFactory;
 import it.geek.musica.model.CasaDiscografica;
 import it.geek.musica.model.Utente;
+import it.geek.musica.service.Service;
+import it.geek.musica.service.impl.UtenteService;
 
 import java.io.IOException;
 import java.util.List;
@@ -30,8 +35,12 @@ public class LoginServlet extends HttpServlet {
 		String username = request.getParameter("username");
 		String password = request.getParameter("password");
 		
-		IDAO utenteDao = new UtenteDAO();
-		Utente u = (Utente)utenteDao.findById(username);
+		/* utilizzo il factory così:
+		Service us = ServiceFactory.getUtenteService();
+		Utente u0 = (Utente)us.get(username);*/
+		
+		// o in alternativa in un unica riga:
+		Utente u = (Utente)ServiceFactory.getUtenteService().get(username);
 		
 		String forwardPath = "";
 		
@@ -43,8 +52,8 @@ public class LoginServlet extends HttpServlet {
 			HttpSession session = request.getSession();
 			session.setAttribute("utente", u);
 			
-			IDAO casaDiscograficaDao = new CasaDiscograficaDAO();
-			List<CasaDiscografica> cadilist = casaDiscograficaDao.findAll();
+			List<CasaDiscografica> cadilist = ServiceFactory.getCasaDiscograficaService()
+														    .getAll();
 			
 			request.setAttribute("caseDiscografiche", cadilist);
 			

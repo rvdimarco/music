@@ -14,11 +14,9 @@ import it.geek.musica.util.MyJNDIConnection;
 public class CasaDiscograficaDAO implements IDAO<CasaDiscografica, String> {
 
 	@Override
-	public CasaDiscografica findById(String id) {
+	public CasaDiscografica findById(String id, Connection c) {
 		
 		CasaDiscografica casa = null;
-		
-		Connection c = MyJNDIConnection.getConnection();
 		
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -76,22 +74,15 @@ public class CasaDiscograficaDAO implements IDAO<CasaDiscografica, String> {
 			} catch (Exception e2) {
 				System.out.println("impossibile chiudere il PreparedStatement");
 			}
-			try {
-				c.close();
-			} catch (Exception e2) {
-				System.out.println("impossibile chiudere la Connection");
-			}			
 		}
 		
 		return casa;
 	}
 
 	@Override
-	public List<CasaDiscografica> findAll() {
+	public List<CasaDiscografica> findAll(Connection c) {
 
 		List<CasaDiscografica> ret = null;
-		
-		Connection c = MyJNDIConnection.getConnection();
 		
 		PreparedStatement ps = null;
 		ResultSet rs = null;
@@ -126,11 +117,6 @@ public class CasaDiscograficaDAO implements IDAO<CasaDiscografica, String> {
 			} catch (Exception e2) {
 				System.out.println("impossibile chiudere il PreparedStatement");
 			}
-			try {
-				c.close();
-			} catch (Exception e2) {
-				System.out.println("impossibile chiudere la Connection");
-			}			
 		}
 		
 		return ret;
@@ -138,21 +124,27 @@ public class CasaDiscograficaDAO implements IDAO<CasaDiscografica, String> {
 	}
 
 	@Override
-	public boolean delete(String id) {
+	public boolean delete(String id, Connection c) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean insert(CasaDiscografica e) {
+	public boolean insert(CasaDiscografica e, Connection c) {
 		// TODO Auto-generated method stub
 		return false;
 	}
 
 	@Override
-	public boolean update(CasaDiscografica e) {
+	public boolean update(CasaDiscografica e, Connection c) {
 		// TODO Auto-generated method stub
 		return false;
+	}
+
+	@Override
+	public List<CasaDiscografica> findByExample(CasaDiscografica e, Connection c) {
+		// TODO Auto-generated method stub
+		return null;
 	}
 
 

@@ -3,7 +3,7 @@ package it.geek.musica.model;
 import java.util.ArrayList;
 import java.util.List;
 
-public class CasaDiscografica {
+public class CasaDiscografica extends Entity {
 
 	private String nome;
 	private String sede;
