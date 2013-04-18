@@ -26,27 +26,26 @@ public class AutoreDAO implements IDAO<Autore, String> {
 		ResultSet rs = null;
 		
 		StringBuilder sb = new StringBuilder();
-		sb.append("SELECT  a.cf      as cf_autore, ");
-				sb.append("a.nome    as nome_autore, ");
-				sb.append("a.cognome as cognome_autore ");
-		sb.append("FROM autori a ");
-		sb.append("WHERE a.cf = ? ");
+		sb.append("SELECT  cf, nome, cognome, casa_discografica ");
+		sb.append("FROM autori ");
+		sb.append("WHERE cf = ? ");
 		
 		try{
 			ps = c.prepareStatement(sb.toString());
 			ps.setString(1, id);
 			
 			logger.debug("sql: "+sb.toString());
-			logger.debug("a.cf = "+id);
+			logger.debug("cf = "+id);
 			
 			rs = ps.executeQuery();
 			
 			Autore a = null;
 			if(rs.next()){
 				a = new Autore();
-				a.setCodiceFiscale(rs.getString("cf_autore"));
-				a.setNome(rs.getString("nome_autore"));
-				a.setCognome(rs.getString("cognome_autore"));
+				a.setCodiceFiscale(rs.getString("cf"));
+				a.setNome(rs.getString("nome"));
+				a.setCognome(rs.getString("cognome"));
+				a.setCasaDiscografica(rs.getString("casa_discografica"));
 			}
 			
 		}catch(Exception e){
@@ -78,7 +77,7 @@ public class AutoreDAO implements IDAO<Autore, String> {
 		ResultSet rs = null;
 		
 		StringBuilder sb = new StringBuilder();
-		sb.append("SELECT  cf, nome, cognome ");
+		sb.append("SELECT  cf, nome, cognome, casa_discografica ");
 		sb.append("FROM autori ");
 		
 		try{
@@ -95,6 +94,7 @@ public class AutoreDAO implements IDAO<Autore, String> {
 				a.setCodiceFiscale(rs.getString("cf"));
 				a.setNome(rs.getString("nome"));
 				a.setCognome(rs.getString("cognome"));
+				a.setCasaDiscografica(rs.getString("casa_discografica"));
 				autori.add(a);
 			}
 			
@@ -123,19 +123,23 @@ public class AutoreDAO implements IDAO<Autore, String> {
 		logger.info("AutoreDAO::delete");
 		boolean wasDeleted = false;
 		
+		if(id==null){
+			return wasDeleted;
+		}
+		
 		PreparedStatement ps = null;
 		
 		StringBuilder sb = new StringBuilder();
 		sb.append("DELETE ");
-		sb.append("FROM autori a ");
-		sb.append("WHERE a.cf = ? ");
+		sb.append("FROM autori ");
+		sb.append("WHERE cf = ? ");
 		
 		try{
 			ps = c.prepareStatement(sb.toString());
 			ps.setString(1, id);
 			
 			logger.debug("sql: "+sb.toString());
-			logger.debug("a.cf = "+id);
+			logger.debug("cf = "+id);
 			
 			int deleted = ps.executeUpdate();
 			
@@ -162,6 +166,10 @@ public class AutoreDAO implements IDAO<Autore, String> {
 	public boolean insert(Autore a, Connection c) {
 		logger.info("AutoreDAO::insert");
 		boolean wasInserted = false;
+		
+		if(a==null || a.getCodiceFiscale()==null || a.getNome()==null || a.getCognome()==null || a.getCasaDiscografica()==null ){
+			return wasInserted;
+		}
 		
 		PreparedStatement ps = null;
 		
@@ -207,6 +215,10 @@ public class AutoreDAO implements IDAO<Autore, String> {
 	public boolean update(Autore a, Connection c) {
 		logger.info("AutoreDAO::update");
 		boolean wasUpdated = false;
+		
+		if(a==null || a.getCodiceFiscale()==null){
+			return wasUpdated;
+		}
 		
 		PreparedStatement ps = null;
 		
@@ -271,6 +283,75 @@ public class AutoreDAO implements IDAO<Autore, String> {
 	public List<Autore> findByExample(Autore ex, Connection c) {
 		logger.info("AutoreDAO::findByExample");
 		List<Autore> autori = null;
+		
+		PreparedStatement ps = null;
+		ResultSet rs = null;
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("SELECT  cf, nome, cognome, casa_discografica ");
+		sb.append("FROM autori WHERE 1=1 ");
+		
+		if(ex.getCodiceFiscale()!=null){
+			sb.append("AND cf = ? ");
+		}
+		if(ex.getNome()!=null){
+			sb.append("AND nome = ? ");
+		}
+		if(ex.getCognome()!=null){
+			sb.append("AND cognome = ? ");
+		}
+		if(ex.getCasaDiscografica()!=null){
+			sb.append("AND casa_discografica = ? ");
+		}
+		
+		try{
+			ps = c.prepareStatement(sb.toString());
+			int i = 0;
+			if(ex.getCodiceFiscale()!=null){
+				ps.setString(++i, ex.getCodiceFiscale());
+			}
+			if(ex.getNome()!=null){
+				ps.setString(++i, ex.getNome());
+			}
+			if(ex.getCognome()!=null){
+				ps.setString(++i, ex.getCognome());
+			}
+			if(ex.getCasaDiscografica()!=null){
+				ps.setString(++i, ex.getCasaDiscografica());
+			}
+			
+			logger.debug("sql: "+sb.toString());
+			logger.debug("autore = "+ex);
+			
+			rs = ps.executeQuery();
+			
+			Autore a = null;
+			autori = new ArrayList<Autore>();
+			while(rs.next()){
+				a = new Autore();
+				a.setCodiceFiscale(rs.getString("cf"));
+				a.setNome(rs.getString("nome"));
+				a.setCognome(rs.getString("cognome"));
+				a.setCasaDiscografica(rs.getString("casa_discografica"));
+				autori.add(a);
+			}
+			
+		}catch(Exception e){
+			logger.error("errore! "+e);
+			e.printStackTrace();
+			
+		}finally{
+			try {
+				rs.close();
+			} catch (Exception e2) {
+				logger.error("impossibile chiudere il ResultSet");
+			}
+			try {
+				ps.close();
+			} catch (Exception e2) {
+				logger.error("impossibile chiudere il PreparedStatement");
+			}
+		}
 		
 		return autori;
 	}
