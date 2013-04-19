@@ -5,6 +5,7 @@ public class Utente extends Entity {
 	private String password;
 	private String cognome;
 	private String nome;
+	private Ruolo ruolo;
 	
 	public String getUsername() {
 		return username;
@@ -30,7 +31,12 @@ public class Utente extends Entity {
 	public void setNome(String nome) {
 		this.nome = nome;
 	}
-	
+	public Ruolo getRuolo() {
+		return ruolo;
+	}
+	public void setRuolo(Ruolo ruolo) {
+		this.ruolo = ruolo;
+	}
 	@Override
 	public int hashCode() {
 		final int prime = 31;
@@ -39,6 +45,7 @@ public class Utente extends Entity {
 		result = prime * result + ((nome == null) ? 0 : nome.hashCode());
 		result = prime * result
 				+ ((password == null) ? 0 : password.hashCode());
+		result = prime * result + ((ruolo == null) ? 0 : ruolo.hashCode());
 		result = prime * result
 				+ ((username == null) ? 0 : username.hashCode());
 		return result;
@@ -67,6 +74,11 @@ public class Utente extends Entity {
 				return false;
 		} else if (!password.equals(other.password))
 			return false;
+		if (ruolo == null) {
+			if (other.ruolo != null)
+				return false;
+		} else if (!ruolo.equals(other.ruolo))
+			return false;
 		if (username == null) {
 			if (other.username != null)
 				return false;
@@ -77,7 +89,8 @@ public class Utente extends Entity {
 	@Override
 	public String toString() {
 		return "Utente [username=" + username + ", password=" + password
-				+ ", cognome=" + cognome + ", nome=" + nome + "]";
+				+ ", cognome=" + cognome + ", nome=" + nome + ", ruolo="
+				+ ruolo + "]";
 	}
 	
 }

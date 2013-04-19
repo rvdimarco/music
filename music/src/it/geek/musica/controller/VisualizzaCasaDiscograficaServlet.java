@@ -1,7 +1,5 @@
 package it.geek.musica.controller;
 
-import it.geek.musica.dao.IDAO;
-import it.geek.musica.dao.impl.CasaDiscograficaDAO;
 import it.geek.musica.factory.ServiceFactory;
 import it.geek.musica.model.CasaDiscografica;
 

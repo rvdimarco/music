@@ -7,6 +7,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<%=request.getParameter("primo")%>&nbsp;&nbsp;<%=request.getParameter("secondo")%>...
+Logou effettuata correttamente (utente in sessione: <%=session.getAttribute("utente") %>)
 </body>
 </html>

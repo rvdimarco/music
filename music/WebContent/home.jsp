@@ -1,3 +1,4 @@
+<%@page import="it.geek.musica.util.Constants"%>
 <%@page import="it.geek.musica.util.HtmlUtil"%>
 <%@page import="java.util.Iterator"%>
 <%@page import="it.geek.musica.model.CasaDiscografica"%>
@@ -13,8 +14,15 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Home</title>
 </head>
-<body>
-HOME&nbsp;-&nbsp;Benvenuto&nbsp;<%=ut.getNome()%>&nbsp;<%=ut.getCognome()%><br/><br/>
+<body><center>
+HOME&nbsp;-&nbsp;<jsp:include page="header.jsp"/><br/><br/>
+<%if(Constants.RUOLO_AMMINISTRATORE==ut.getRuolo().getCodice()){%>
+Vai alla gestione utenti:<br/>
+	<form method="get" action="gestioneUtenti">
+		<input type="submit" name="vai" value="Vai"/>
+		<input type="hidden" name="<%=Constants.CODOP_LABEL%>" value="<%=Constants.CODOP_LISTA_VALUE%>"/>
+	</form><br/><br/>
+<%}%>
 Visualizza la lista di tutte le case discografiche:<br/>
 	<form method="get" action="listaCaseDiscografiche">
 		<input type="submit" name="vai" value="Vai"/>
@@ -39,5 +47,5 @@ Oppure scegline una delle seguenti:<br/>
 		<input type="submit" name="esegui2" value="Esegui"/>
 	</form><br/><br/>	
 	<%} %>
-</body>
+</center></body>
 </html>

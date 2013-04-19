@@ -6,12 +6,10 @@ import java.sql.ResultSet;
 import java.util.ArrayList;
 import java.util.List;
 
-import org.apache.log4j.BasicConfigurator;
 import org.apache.log4j.Logger;
 
 import it.geek.musica.dao.IDAO;
 import it.geek.musica.model.Autore;
-import it.geek.musica.util.MyJNDIConnection;
 
 public class AutoreDAO implements IDAO<Autore, String> {
 

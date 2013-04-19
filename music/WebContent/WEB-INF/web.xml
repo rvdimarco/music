@@ -25,6 +25,14 @@
     <servlet-name>GestioneAutore</servlet-name>
     <servlet-class>it.geek.musica.controller.GestioneAutoreServlet</servlet-class>
   </servlet>
+  <servlet>
+    <servlet-name>Logout</servlet-name>
+    <servlet-class>it.geek.musica.controller.LogoutServlet</servlet-class>
+  </servlet>
+  <servlet>
+    <servlet-name>GestioneUtente</servlet-name>
+    <servlet-class>it.geek.musica.controller.GestioneUtenteServlet</servlet-class>
+  </servlet>
   <servlet-mapping>
     <servlet-name>Login</servlet-name>
     <url-pattern>/home</url-pattern>
@@ -40,5 +48,13 @@
   <servlet-mapping>
     <servlet-name>GestioneAutore</servlet-name>
     <url-pattern>/gestioneAutore</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>Logout</servlet-name>
+    <url-pattern>/logout</url-pattern>
+  </servlet-mapping>
+  <servlet-mapping>
+    <servlet-name>GestioneUtente</servlet-name>
+    <url-pattern>/gestioneUtenti</url-pattern>
   </servlet-mapping>
 </web-app>

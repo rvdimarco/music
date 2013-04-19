@@ -25,4 +25,16 @@ public class AutoreService implements Service<Autore, String> {
 		return null;
 	}
 
+	@Override
+	public void delete(String k) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void save(Autore e) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

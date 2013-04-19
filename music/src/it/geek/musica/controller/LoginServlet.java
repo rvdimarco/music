@@ -10,6 +10,7 @@ import it.geek.musica.model.CasaDiscografica;
 import it.geek.musica.model.Utente;
 import it.geek.musica.service.Service;
 import it.geek.musica.service.impl.UtenteService;
+import it.geek.musica.util.Constants;
 
 import java.io.IOException;
 import java.util.List;
@@ -47,10 +48,9 @@ public class LoginServlet extends HttpServlet {
 		if(u!=null && u.getPassword().equals(password)){
 			
 			forwardPath= "/home.jsp";
-			//request.setAttribute("utente", u);
 			
 			HttpSession session = request.getSession();
-			session.setAttribute("utente", u);
+			session.setAttribute(Constants.UTENTE_LABEL, u);
 			
 			List<CasaDiscografica> cadilist = ServiceFactory.getCasaDiscograficaService()
 														    .getAll();

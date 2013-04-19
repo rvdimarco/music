@@ -11,6 +11,7 @@
 <title>Lista Case Disc.</title>
 </head>
 <body>
+&nbsp;-&nbsp;<jsp:include page="header.jsp"/><br/><br/>
 Lista Case Discografiche:<br/><br/>
 	<table>
 		<tr>

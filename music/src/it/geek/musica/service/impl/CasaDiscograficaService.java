@@ -15,12 +15,32 @@ import it.geek.musica.util.MyJNDIConnection;
 
 public class CasaDiscograficaService implements Service<CasaDiscografica, String> {
 
-	private Logger logger = Logger.getLogger(UtenteService.class);
+	private Logger logger = Logger.getLogger(CasaDiscograficaService.class);
 	
 	@Override
 	public CasaDiscografica get(String id) {
-		// TODO Auto-generated method stub
-		return null;
+		logger.info("CasaDiscograficaService::get(k)");
+		
+		CasaDiscografica casa = null;
+		Connection conn = null;
+		
+		try {
+			
+			conn = MyJNDIConnection.getConnection();
+			IDAO dao = DaoFactory.getCasaDiscograficaDAO();
+			casa = (CasaDiscografica)dao.findById(id, conn);
+			
+		} catch (Exception e) {
+			logger.error("errore inaspettato: "+e);
+		} finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("impossibile chiudere la connessione: "+e);
+			}
+		}
+		
+		return casa;
 	}
 
 	@Override
@@ -51,6 +71,18 @@ public class CasaDiscograficaService implements Service<CasaDiscografica, String
 		}
 		
 		return cadili;
+	}
+
+	@Override
+	public void delete(String k) {
+		// TODO Auto-generated method stub
+		
+	}
+
+	@Override
+	public void save(CasaDiscografica e) {
+		// TODO Auto-generated method stub
+		
 	}
 
 }

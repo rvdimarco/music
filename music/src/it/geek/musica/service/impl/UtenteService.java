@@ -18,6 +18,7 @@ public class UtenteService implements Service<Utente, String> {
 	
 	@Override
 	public Utente get(String k) {
+		logger.info("UtenteService::get(k)");
 		
 		Utente utente = null;
 		Connection conn = null;
@@ -43,14 +44,45 @@ public class UtenteService implements Service<Utente, String> {
 
 	@Override
 	public List<Utente> get(Utente u) {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException("UtenteService::get(e):: metodo non implementato");
 	}
 
 	@Override
 	public List<Utente> getAll() {
-		// TODO Auto-generated method stub
-		return null;
+		
+		logger.info("UtenteService::getAll");
+		
+		List<Utente> utenti = null;
+		Connection conn = null;
+		
+		try {
+			
+			conn = MyJNDIConnection.getConnection();
+			IDAO dao = DaoFactory.getUtenteDAO();
+			utenti = (List<Utente>)dao.findAll(conn);
+			
+		} catch (Exception e) {
+			logger.error("errore inaspettato: "+e);
+		} finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("impossibile chiudere la connessione: "+e);
+			}
+		}
+		
+		return utenti;	
+		
+	}
+
+	@Override
+	public void delete(String k) {
+		throw new UnsupportedOperationException("UtenteService::delete:: metodo non implementato");
+	}
+
+	@Override
+	public void save(Utente e) {
+		throw new UnsupportedOperationException("UtenteService::save:: metodo non implementato");
 	}
 
 }
