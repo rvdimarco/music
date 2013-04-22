@@ -4,6 +4,8 @@ import java.sql.Connection;
 import java.sql.SQLException;
 import java.util.List;
 
+import javax.management.OperationsException;
+
 import org.apache.log4j.Logger;
 
 import it.geek.musica.dao.IDAO;
@@ -44,7 +46,28 @@ public class UtenteService implements Service<Utente, String> {
 
 	@Override
 	public List<Utente> get(Utente u) {
-		throw new UnsupportedOperationException("UtenteService::get(e):: metodo non implementato");
+		logger.info("UtenteService::get(e)");
+		
+		List<Utente> utenti = null;
+		Connection conn = null;
+		
+		try {
+			
+			conn = MyJNDIConnection.getConnection();
+			IDAO dao = DaoFactory.getUtenteDAO();
+			utenti = (List<Utente>)dao.findByExample(u, conn);
+			
+		} catch (Exception e) {
+			logger.error("errore inaspettato: "+e);
+		} finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("impossibile chiudere la connessione: "+e);
+			}
+		}
+		
+		return utenti;
 	}
 
 	@Override
@@ -77,12 +100,69 @@ public class UtenteService implements Service<Utente, String> {
 
 	@Override
 	public void delete(String k) {
-		throw new UnsupportedOperationException("UtenteService::delete:: metodo non implementato");
+		logger.info("UtenteService::delete");
+		
+		Connection conn = null;
+		
+		try {
+			
+			conn = MyJNDIConnection.getConnection();
+			IDAO dao = DaoFactory.getUtenteDAO();
+			boolean wasDeleted = dao.delete(k,conn);
+			
+			if(!wasDeleted){
+				throw new RuntimeException("non è stato possibile eliminare il record...");
+			}
+			
+		} catch (Exception e) {
+			logger.error("errore inaspettato: "+e);
+		} finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("impossibile chiudere la connessione: "+e);
+			}
+		}
+		
 	}
 
 	@Override
-	public void save(Utente e) {
-		throw new UnsupportedOperationException("UtenteService::save:: metodo non implementato");
+	public void save(Utente u) {
+		logger.info("UtenteService::save");
+		
+		Connection conn = null;
+		
+		try {
+			
+			conn = MyJNDIConnection.getConnection();
+			IDAO dao = DaoFactory.getUtenteDAO();
+			
+			if(u == null || u.getUsername()==null){
+				throw new RuntimeException("utente non identificabile...");
+			}
+			
+			Utente uf = (Utente)dao.findById(u.getUsername(), conn);
+			boolean wasSaved = false;
+			
+			if(uf==null){
+				wasSaved = dao.insert(u,conn);
+			}else{
+				wasSaved = dao.update(u,conn);
+			}
+			
+			if(!wasSaved){
+				throw new RuntimeException("non è stato possibile salvare il record...");
+			}
+			
+		} catch (Exception e) {
+			logger.error("errore inaspettato: "+e);
+		} finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("impossibile chiudere la connessione: "+e);
+			}
+		}	
 	}
 
 }

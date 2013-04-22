@@ -8,8 +8,8 @@
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
 <title>Header</title>
 </head>
-<body>
-Salve&nbsp;<%=u.getNome()%>&nbsp;<%=u.getCognome()%>&nbsp;(<%=u.getRuolo().getDescrizione()%>)
+<body><center>
+Sessione&nbsp;di&nbsp;lavoro&nbsp;di&nbsp;<%=u.getNome()%>&nbsp;<%=u.getCognome()%>&nbsp;(ruolo:&nbsp;<%=u.getRuolo().getDescrizione()%>)
 <a href="logout">logout</a>
-</body>
+</center></body>
 </html>

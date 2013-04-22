@@ -15,21 +15,21 @@
 <title>Home</title>
 </head>
 <body><center>
-HOME&nbsp;-&nbsp;<jsp:include page="header.jsp"/><br/><br/>
-<%if(Constants.RUOLO_AMMINISTRATORE==ut.getRuolo().getCodice()){%>
+HOME<jsp:include page="header.jsp"/><br/><br/>
+<%if(ut.isAmministratore()){%>
 Vai alla gestione utenti:<br/>
-	<form method="get" action="gestioneUtenti">
+	<form name="form1" method="get" action="gestioneUtenti">
 		<input type="submit" name="vai" value="Vai"/>
 		<input type="hidden" name="<%=Constants.CODOP_LABEL%>" value="<%=Constants.CODOP_LISTA_VALUE%>"/>
 	</form><br/><br/>
 <%}%>
 Visualizza la lista di tutte le case discografiche:<br/>
-	<form method="get" action="listaCaseDiscografiche">
+	<form name="form2" method="get" action="listaCaseDiscografiche">
 		<input type="submit" name="vai" value="Vai"/>
 	</form><br/><br/>
 	<% if(list!=null){%>
 Oppure scegline una delle seguenti:<br/>
-	<form name="form1" method="get" action="visualizzaCasaDiscografica">
+	<form name="form3" method="get" action="visualizzaCasaDiscografica">
 		<select name="id">
 			<% Iterator<CasaDiscografica> it = list.iterator();
 			   CasaDiscografica ca = null;
@@ -42,7 +42,7 @@ Oppure scegline una delle seguenti:<br/>
 	</form><br/><br/>
 	
 (Come sopra, ma la funzione questa combo ha una diversa implementazione):<br/>
-	<form name="form2" method="get" action="visualizzaCasaDiscografica">
+	<form name="form4" method="get" action="visualizzaCasaDiscografica">
 	<%= HtmlUtil.writeComboBoxCaseDiscografiche(list) %>
 		<input type="submit" name="esegui2" value="Esegui"/>
 	</form><br/><br/>	

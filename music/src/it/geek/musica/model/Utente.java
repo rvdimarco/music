@@ -1,11 +1,13 @@
 package it.geek.musica.model;
 
+import it.geek.musica.util.Constants;
+
 public class Utente extends Entity {
 	private String username;
 	private String password;
 	private String cognome;
 	private String nome;
-	private Ruolo ruolo;
+	private Ruolo ruolo = new Ruolo();
 	
 	public String getUsername() {
 		return username;
@@ -37,6 +39,14 @@ public class Utente extends Entity {
 	public void setRuolo(Ruolo ruolo) {
 		this.ruolo = ruolo;
 	}
+	public void setRuolo(int ruolo) {
+		this.ruolo.setCodice(ruolo);
+	}
+	
+	public boolean isAmministratore(){
+		return this.ruolo.getCodice()==Constants.RUOLO_AMMINISTRATORE;
+	}
+	
 	@Override
 	public int hashCode() {
 		final int prime = 31;

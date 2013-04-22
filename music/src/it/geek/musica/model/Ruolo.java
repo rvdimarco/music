@@ -6,8 +6,8 @@ import it.geek.musica.util.Constants;
 
 public class Ruolo extends Entity {
 
-	public int codice;
-	protected String descrizione;
+	private int codice;
+	private String descrizione;
 	
 	private static int[]ruoli = {Constants.RUOLO_AMMINISTRATORE,
 								 Constants.RUOLO_STANDARD,

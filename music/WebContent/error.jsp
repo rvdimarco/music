@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 </head>
 <body>
-ERROR&nbsp;-&nbsp;<%=request.getAttribute("messaggio") %>
+ERROR<br/><br/>
+<%=request.getAttribute("messaggio")%>
 </body>
 </html>

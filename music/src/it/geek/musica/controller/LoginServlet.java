@@ -45,22 +45,28 @@ public class LoginServlet extends HttpServlet {
 		
 		String forwardPath = "";
 		
-		if(u!=null && u.getPassword().equals(password)){
+		if(u==null){
+			forwardPath= "/error.jsp";
+			request.setAttribute("messaggio", "utente non trovato");
+		}
+		
+		else if(!u.getPassword().equals(password)){
+			
+			forwardPath= "/error.jsp";
+			request.setAttribute("messaggio", "password non valida");
+			
+		}else{
 			
 			forwardPath= "/home.jsp";
 			
 			HttpSession session = request.getSession();
 			session.setAttribute(Constants.UTENTE_LABEL, u);
 			
+			//logica per estrarre la lista che ho deciso dimostrare nella combo box
 			List<CasaDiscografica> cadilist = ServiceFactory.getCasaDiscograficaService()
 														    .getAll();
 			
 			request.setAttribute("caseDiscografiche", cadilist);
-			
-			
-		}else{
-			
-			forwardPath= "/error.jsp";
 			
 		}
 		

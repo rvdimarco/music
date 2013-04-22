@@ -4,9 +4,9 @@
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=ISO-8859-1">
-<title>Insert title here</title>
+<title>Logout</title>
 </head>
 <body>
-Logou effettuata correttamente (utente in sessione: <%=session.getAttribute("utente") %>)
+Logout effettuata correttamente (utente in sessione: <%=session.getAttribute("utente") %>)
 </body>
 </html>

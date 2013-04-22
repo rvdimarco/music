@@ -12,7 +12,7 @@
 <title>Lista Utenti</title>
 </head>
 <body>
-&nbsp;-&nbsp;<jsp:include page="header.jsp"/><br/><br/>
+<jsp:include page="header.jsp"/><br/><br/>
 Utenti: (per inserire un nuovo autore <a href="gestioneUtenti?codop=INS">clicca qui</a>)<br/>
 	<table>
 		<tr>

@@ -12,7 +12,7 @@
 <title>Dettaglio Casa Disc.</title>
 </head>
 <body>
-&nbsp;-&nbsp;<jsp:include page="header.jsp"/><br/><br/>
+<jsp:include page="header.jsp"/><br/><br/>
 Dettaglio Casa Discografica:<br/>
 
 	<table>
