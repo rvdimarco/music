@@ -35,7 +35,7 @@
 			return false;
 		}
 		
-		if(confirm("se username già presente, l'utente sarà modificato... proseguire?")){
+		if(confirm("inserire?")){
 			document.insForm.submit();
 		}else{
 			return false;

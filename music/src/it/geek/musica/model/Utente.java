@@ -36,6 +36,9 @@ public class Utente extends Entity {
 	public Ruolo getRuolo() {
 		return ruolo;
 	}
+	public int getCodiceRuolo() {
+		return ruolo.getCodice();
+	}
 	public void setRuolo(Ruolo ruolo) {
 		this.ruolo = ruolo;
 	}

@@ -220,7 +220,7 @@ public class AutoreDAO implements IDAO<Autore, String> {
 		
 		PreparedStatement ps = null;
 		
-		if(a==null || (a.getNome()==null && a.getCognome()==null && a.getCasaDiscografica()==null)){
+		if(a.getNome()==null && a.getCognome()==null && a.getCasaDiscografica()==null){
 			return wasUpdated;
 		}
 		
@@ -232,7 +232,7 @@ public class AutoreDAO implements IDAO<Autore, String> {
 		if(a.getCognome()!=null){
 			sb.append("cognome = ?,");
 		}
-		if(a.getCognome()==null){
+		if(a.getCasaDiscografica()!=null){
 			sb.append("casa_discografica = ?,");
 		}
 		sb.deleteCharAt(sb.lastIndexOf(","));
@@ -247,7 +247,7 @@ public class AutoreDAO implements IDAO<Autore, String> {
 			if(a.getCognome()!=null){
 				ps.setString(++i, a.getCognome());
 			}
-			if(a.getCognome()==null){
+			if(a.getCasaDiscografica()!=null){
 				ps.setString(++i, a.getCasaDiscografica());
 			}
 			ps.setString(++i, a.getCodiceFiscale());

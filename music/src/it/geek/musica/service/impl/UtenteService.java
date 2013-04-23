@@ -9,6 +9,7 @@ import javax.management.OperationsException;
 import org.apache.log4j.Logger;
 
 import it.geek.musica.dao.IDAO;
+import it.geek.musica.exception.BusinessException;
 import it.geek.musica.factory.DaoFactory;
 import it.geek.musica.model.Utente;
 import it.geek.musica.service.Service;
@@ -111,7 +112,7 @@ public class UtenteService implements Service<Utente, String> {
 			boolean wasDeleted = dao.delete(k,conn);
 			
 			if(!wasDeleted){
-				throw new RuntimeException("non è stato possibile eliminare il record...");
+				throw new BusinessException("non è stato possibile eliminare il record...");
 			}
 			
 		} catch (Exception e) {
@@ -138,20 +139,21 @@ public class UtenteService implements Service<Utente, String> {
 			IDAO dao = DaoFactory.getUtenteDAO();
 			
 			if(u == null || u.getUsername()==null){
-				throw new RuntimeException("utente non identificabile...");
+				throw new BusinessException("utente non identificabile...");
 			}
 			
 			Utente uf = (Utente)dao.findById(u.getUsername(), conn);
 			boolean wasSaved = false;
 			
 			if(uf==null){
-				wasSaved = dao.insert(u,conn);
+				throw new BusinessException("utente non trovato!");
+				
 			}else{
 				wasSaved = dao.update(u,conn);
 			}
 			
 			if(!wasSaved){
-				throw new RuntimeException("non è stato possibile salvare il record...");
+				throw new BusinessException("non è stato possibile modificare l'utente...");
 			}
 			
 		} catch (Exception e) {
@@ -166,9 +168,42 @@ public class UtenteService implements Service<Utente, String> {
 	}
 
 	@Override
-	public void create(Utente e) {
-		// TODO Auto-generated method stub
+	public void create(Utente u) {
+		logger.info("UtenteService::create");
 		
+		Connection conn = null;
+		
+		try {
+			
+			conn = MyJNDIConnection.getConnection();
+			IDAO dao = DaoFactory.getUtenteDAO();
+			
+			if(u == null || u.getUsername()==null){
+				throw new BusinessException("utente non identificabile...");
+			}
+			
+			Utente uf = (Utente)dao.findById(u.getUsername(), conn);
+			boolean wasCreated = false;
+			
+			if(uf==null){
+				wasCreated = dao.insert(u,conn);
+			}else{
+				throw new BusinessException("utente già registrato!");
+			}
+			
+			if(!wasCreated){
+				throw new BusinessException("non è stato possibile inserire l'utente...");
+			}
+			
+		} catch (Exception e) {
+			logger.error("errore inaspettato: "+e);
+		} finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("impossibile chiudere la connessione: "+e);
+			}
+		}	
 	}
 
 }
