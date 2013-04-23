@@ -75,33 +75,60 @@ public class GestioneUtenteServlet extends HttpServlet {
 				forwardPath = "/modificaUtente.jsp";				
 				break;
 			
-			//recupera i dati dalla pagina di inserimento(o di modifica), inserisce(o modifica), estrae la lista aggiornata e predispone l'inoltro alla pagina di visuaizzazione lista
-			case Constants.CODOP_DO_INS_MOD_VALUE:
-				String username = request.getParameter("username");
-				String password = username;
-				String cognome = request.getParameter("cognome");
-				String nome = request.getParameter("nome");
-				int codRuolo = 0;
+			//recupera i dati dalla pagina di inserimento, inserisce, estrae la lista aggiornata e predispone l'inoltro alla pagina di visuaizzazione lista
+			case Constants.CODOP_DO_INS_VALUE:
+				String usernameIns = request.getParameter("username");
+				String passwordIns = usernameIns;
+				String cognomeIns = request.getParameter("cognome");
+				String nomeIns = request.getParameter("nome");
+				int codRuoloIns = 0;
 				try {
-					codRuolo = Integer.parseInt(request.getParameter("ruolo"));
+					codRuoloIns = Integer.parseInt(request.getParameter("ruolo"));
 				} catch (NumberFormatException e) {
-					codRuolo = Constants.RUOLO_OSPITE;
+					codRuoloIns = Constants.RUOLO_OSPITE;
 				} 
-				Utente utenteInsMod = new Utente();
-				utenteInsMod.setUsername(username);
-				utenteInsMod.setPassword(password);
-				utenteInsMod.setCognome(cognome);
-				utenteInsMod.setNome(nome);
-				utenteInsMod.setRuolo(codRuolo);
+				Utente utenteIns = new Utente();
+				utenteIns.setUsername(usernameIns);
+				utenteIns.setPassword(passwordIns);
+				utenteIns.setCognome(cognomeIns);
+				utenteIns.setNome(nomeIns);
+				utenteIns.setRuolo(codRuoloIns);
 				
-				ServiceFactory.getUtenteService().save(utenteInsMod);
+				ServiceFactory.getUtenteService().create(utenteIns);
 				
 				ulist = ServiceFactory.getUtenteService().getAll();
 				request.setAttribute("utenti", ulist);
 				forwardPath = "/listaUtenti.jsp";
 				
 				break;
-			
+
+				//recupera i dati dalla pagina di modifica, modifica, estrae la lista aggiornata e predispone l'inoltro alla pagina di visuaizzazione lista
+				case Constants.CODOP_DO_MOD_VALUE:
+					String usernameMod = request.getParameter("username");
+					String passwordMod = usernameMod;
+					String cognomeMod = request.getParameter("cognome");
+					String nomeMod = request.getParameter("nome");
+					int codRuoloMod = 0;
+					try {
+						codRuoloMod = Integer.parseInt(request.getParameter("ruolo"));
+					} catch (NumberFormatException e) {
+						codRuoloMod = Constants.RUOLO_OSPITE;
+					} 
+					Utente utenteMod = new Utente();
+					utenteMod.setUsername(usernameMod);
+					utenteMod.setPassword(passwordMod);
+					utenteMod.setCognome(cognomeMod);
+					utenteMod.setNome(nomeMod);
+					utenteMod.setRuolo(codRuoloMod);
+					
+					ServiceFactory.getUtenteService().save(utenteMod);
+					
+					ulist = ServiceFactory.getUtenteService().getAll();
+					request.setAttribute("utenti", ulist);
+					forwardPath = "/listaUtenti.jsp";
+					
+					break;
+				
 			//estrae l'utente selezionato e predispone l'inoltro alla pagina di visualizzazione dettaglio
 			case Constants.CODOP_VIS_VALUE:
 				key = request.getParameter("id");

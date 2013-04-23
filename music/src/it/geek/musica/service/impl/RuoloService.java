@@ -61,5 +61,11 @@ public class RuoloService implements Service<Ruolo, Integer> {
 		throw new UnsupportedOperationException("RuoloService::save::metodo non implementato");
 	}
 
+	@Override
+	public void create(Ruolo e) {
+		// TODO Auto-generated method stub
+		
+	}
+
 
 }

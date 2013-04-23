@@ -37,4 +37,10 @@ public class AutoreService implements Service<Autore, String> {
 		
 	}
 
+	@Override
+	public void create(Autore e) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }

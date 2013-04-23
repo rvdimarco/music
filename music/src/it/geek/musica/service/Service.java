@@ -10,6 +10,7 @@ public interface Service<E extends Entity, K> {
 	public List<E> get(E e);
 	public List<E> getAll();
 	public void delete(K k);
+	public void create(E e);
 	public void save(E e);
 	
 }

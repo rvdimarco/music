@@ -85,4 +85,10 @@ public class CasaDiscograficaService implements Service<CasaDiscografica, String
 		
 	}
 
+	@Override
+	public void create(CasaDiscografica e) {
+		// TODO Auto-generated method stub
+		
+	}
+
 }
