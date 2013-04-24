@@ -16,6 +16,7 @@
 Utenti: (per inserire un nuovo autore <a href="gestioneUtenti?codop=INS">clicca qui</a>)<br/>
 	<table>
 		<tr>
+			<td>sel</td>
 			<td><b>Nome</b></td>
 			<td><b>Cognome</b></td>
 			<td><b>Username</b></td>
@@ -29,9 +30,11 @@ Utenti: (per inserire un nuovo autore <a href="gestioneUtenti?codop=INS">clicca 
 		Iterator<Utente> it = ulist.iterator();
 		Utente u = null;
 		while(it.hasNext()){
+			int i = 0;
 			u = it.next();
 		%>
 			<tr>
+				<td><input type="checkbox" name="sel<%=i++%>"/></td>
 				<td><%=u.getNome()%></td>
 				<td><%=u.getCognome()%></td>
 				<td><%=u.getUsername()%></td>
