@@ -1,20 +1,69 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <web-app xmlns:javaee="http://java.sun.com/xml/ns/javaee" xmlns:web="http://java.sun.com/xml/ns/javaee/web-app_2_5.xsd">
-  <javaee:resource-ref>
-    <javaee:description>Prenotazioni DB Connection</javaee:description>
-    <javaee:res-ref-name>jdbc/PrenotazioniDB</javaee:res-ref-name>
-    <javaee:res-type>javax.sql.DataSource</javaee:res-type>
-    <javaee:res-auth>Container</javaee:res-auth>
-  </javaee:resource-ref>
+  
+  <resource-ref>
+    <description>Prenotazioni DB Connection</description>
+    <res-ref-name>jdbc/PrenotazioniDB</res-ref-name>
+    <res-type>javax.sql.DataSource</res-type>
+    <res-auth>Container</res-auth>
+  </resource-ref>
+  
   <welcome-file-list>
     <welcome-file>ingresso.html</welcome-file>
   </welcome-file-list>
-  <servlet>
-    <servlet-name>Riconoscimento</servlet-name>
-    <servlet-class>it.geek.prenotazioni.controller.RiconoscimentoServlet</servlet-class>
-  </servlet>
-  <servlet-mapping>
-    <servlet-name>Riconoscimento</servlet-name>
-    <url-pattern>/home</url-pattern>
-  </servlet-mapping>
+  
+	  <servlet>
+	    <servlet-name>Riconoscimento</servlet-name>
+	    <servlet-class>it.geek.prenotazioni.controller.RiconoscimentoServlet</servlet-class>
+	  </servlet>
+	  <servlet>
+	    <servlet-name>VisualizzaPrenotazioni</servlet-name>
+	    <servlet-class>it.geek.prenotazioni.controller.VisualizzaPrenotazioniServlet</servlet-class>
+	  </servlet>
+	  <servlet>
+	    <servlet-name>VisualizzaCorsiPrenotabili</servlet-name>
+	    <servlet-class>it.geek.prenotazioni.controller.VisualizzaCorsiPrenotabiliServlet</servlet-class>
+	  </servlet>
+	  <servlet>
+	    <servlet-name>PrenotaCorso</servlet-name>
+	    <servlet-class>it.geek.prenotazioni.controller.PrenotaCorsoServlet</servlet-class>
+	  </servlet>
+	  <servlet>
+	    <servlet-name>Logout</servlet-name>
+	    <servlet-class>it.geek.prenotazioni.controller.LogoutServlet</servlet-class>
+	  </servlet>
+	  <servlet>
+	    <servlet-name>EliminaPrenotazioniCorsi</servlet-name>
+	    <servlet-class>it.geek.prenotazioni.controller.EliminaPrenotazioniCorsiServlet</servlet-class>
+	  </servlet>
+  
+	  <servlet-mapping>
+	    <servlet-name>Riconoscimento</servlet-name>
+	    <url-pattern>/home</url-pattern>
+	  </servlet-mapping>
+	  <servlet-mapping>
+	    <servlet-name>VisualizzaPrenotazioni</servlet-name>
+	    <url-pattern>/visualizzaPrenotazioni</url-pattern>
+	  </servlet-mapping>
+	  <servlet-mapping>
+	    <servlet-name>VisualizzaCorsiPrenotabili</servlet-name>
+	    <url-pattern>/visualizzaCorsiPrenotabili</url-pattern>
+	  </servlet-mapping>
+	  <servlet-mapping>
+	    <servlet-name>PrenotaCorso</servlet-name>
+	    <url-pattern>/prenotaCorso</url-pattern>
+	  </servlet-mapping>
+	  <servlet-mapping>
+	    <servlet-name>Logout</servlet-name>
+	    <url-pattern>/logout</url-pattern>
+	  </servlet-mapping>
+	  <servlet-mapping>
+	    <servlet-name>EliminaPrenotazioniCorsi</servlet-name>
+	    <url-pattern>/eliminaPrenotazioniCorsi</url-pattern>
+	  </servlet-mapping>
+	  
+  <error-page>
+	<exception-type>java.lang.Throwable</exception-type>
+	<location>/error.jsp</location>
+  </error-page> 
 </web-app>
