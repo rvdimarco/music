@@ -6,8 +6,11 @@
 
 	<form-beans>
 	
-		<form-bean name="LoginForm"
+		<form-bean name="loginForm"
 				   type="it.geek.ms.form.LoginForm" />
+				   
+		<form-bean name="homeForm"
+				   type="it.geek.ms.form.HomeForm" />
 				   
 	</form-beans>
 
@@ -18,7 +21,7 @@
 	<action-mappings>
 	
 		<action path="/login" 
-				name="LoginForm" 
+				name="loginForm" 
 				scope="request" 
 				type="it.geek.ms.controller.LoginAction">
 				
@@ -27,6 +30,20 @@
 			
 		</action>
 		
+		<action path="/visualizza" 
+				name="homeForm" 
+				scope="request" 
+				type="it.geek.ms.controller.HomeAction"
+				validate="true"
+				input="/home.jsp">
+				
+			<forward name="success" path="/visualizza.jsp" />
+			<forward name="failure" path="/error.jsp" />
+			
+		</action>		
+		
 	</action-mappings>
+
+	<message-resources parameter="ApplicationResources"></message-resources>
 
 </struts-config>
