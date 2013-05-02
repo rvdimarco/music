@@ -13,6 +13,7 @@ Benvenuto&nbsp;${studente.nome}<br/><br/>
 Scegli&nbsp;una&nbsp;fra&nbsp;le&nbsp;funzioni&nbsp;offerte:<br/>
 <a href="visualizzaPrenotazioni">Visualizza le tue prenotazioni</a>
 <a href="visualizzaCorsiPrenotabili">Prenota un corso</a>
+<a href="visualizzaCorsiPrenotabili?isJstlTest=true">Prenota un corso (JSTL)</a>
 <%} %>
 </body>
 </html>
