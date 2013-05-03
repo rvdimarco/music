@@ -45,7 +45,7 @@
 			<%	}%>
 		</table>
 		<input type="submit" value="elimina i corsi selezionati"/>
-		<input type="checkbox" name="transazioneCheck" value="false" onclick="valorizzaTransazioneCheck();"/>in una unica transazione
+		<input type="radio" name="transazioneCheck" value="false" onclick="valorizzaTransazioneCheck();"/>in una unica transazione
 		</form>
 		<form name="indietro" action="home">
 			<input type="hidden"name="matricola" value="${studente.matricola}"/>
