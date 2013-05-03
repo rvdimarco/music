@@ -15,7 +15,8 @@
 	${studente eq null ? "Attenzione: violazione di sicurezza!<br/><br/>..." : ""}
 	<%if(session.getAttribute("studente")!=null){%>
 		${studente.nome}&nbsp;${studente.cognome},
-		&nbsp;ecco&nbsp;i&nbsp;corsi&nbsp;da&nbsp;te&nbsp;prenotabili:<br/><br/>
+		&nbsp;ecco&nbsp;i&nbsp;corsi&nbsp;da&nbsp;te&nbsp;prenotabili:
+		&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;<a href="logout">logout</a><br/><br/>
 		<table>
 			<tr>
 				<td><b>Codice&nbsp;Corso</b></td>

@@ -11,9 +11,10 @@ ${studente eq null ? "Attenzione: violazione di sicurezza!<br/><br/>..." : ""}
 <%if(session.getAttribute("studente")!=null){%>
 Benvenuto&nbsp;${studente.nome}<br/><br/>
 Scegli&nbsp;una&nbsp;fra&nbsp;le&nbsp;funzioni&nbsp;offerte:<br/>
-<a href="visualizzaPrenotazioni">Visualizza le tue prenotazioni</a>
-<a href="visualizzaCorsiPrenotabili">Prenota un corso</a>
-<a href="visualizzaCorsiPrenotabili?isJstlTest=true">Prenota un corso (JSTL)</a>
+<a href="visualizzaPrenotazioni">Visualizza le tue prenotazioni</a>&nbsp;&nbsp;&nbsp;
+<a href="visualizzaCorsiPrenotabili">Prenota un corso</a>&nbsp;&nbsp;&nbsp;
+<a href="visualizzaCorsiPrenotabili?isJstlTest=true">Prenota un corso (JSTL)</a>&nbsp;&nbsp;&nbsp;
+<a href="logout">logout</a>
 <%} %>
 </body>
 </html>

@@ -7,6 +7,7 @@ import it.geek.prenotazioni.model.Studente;
 import it.geek.prenotazioni.service.SegretarioService;
 
 import java.io.IOException;
+import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
@@ -34,19 +35,44 @@ public class EliminaPrenotazioniCorsiServlet extends HttpServlet {
 		Studente studente = (Studente)session.getAttribute("studente");
 		
 		SegretarioService segretario = new SegretarioService();
-		
-		
 		Enumeration<String> eli = request.getParameterNames();
-		while(eli.hasMoreElements()){
-			String s = eli.nextElement();
-			log.debug("param name: "+s+" - param value: "+request.getParameter(s));
-			
-			if(s.contains("corsiDaEliminare")){
-				segretario.cancellaPrenotazione(studente, new Corso(Integer.parseInt(request.getParameter(s))));
-				
-			}
-		}
 		
+		if(new Boolean(request.getParameter("transazioneCheck"))){			//richiamo ciclicamente la delete senza transazione...
+			//richiamo una serie di delete in transazione:
+			//se dopo una cancellazione qualcosa va male il DB non viene alterato!!
+			//la prima cancellazione non vale anche se era già stata effettuata!!!
+			//o tutte o nessuna...
+
+			//preparo una lista con gli id delle prenotazioni da eliminare
+			List<Integer> ids = new ArrayList<>();
+			while(eli.hasMoreElements()){
+				String s = eli.nextElement();
+				log.debug("param name: "+s+" - param value: "+request.getParameter(s));
+	
+				if(s.contains("corsiDaEliminare")){
+					ids.add(Integer.parseInt(request.getParameter(s)));
+				}
+			}
+			
+			//e ora che ho la lista della spesa...
+			segretario.cancellaPrenotazioni(studente, ids);
+			
+			
+		}else{
+			//richiamo ciclicamente la delete senza transazione:
+			//se dopo una cancellazione qualcosa va male ho eseguito una operazione monca!!
+		
+			while(eli.hasMoreElements()){
+				String s = eli.nextElement();
+				log.debug("param name: "+s+" - param value: "+request.getParameter(s));
+				
+				if(s.contains("corsiDaEliminare")){
+					segretario.cancellaPrenotazione(studente, new Corso(Integer.parseInt(request.getParameter(s))));
+					
+				}
+			}
+		
+		}
 		//aggiorno lo studente in session
 		StudenteDAO studenteDao = new StudenteDAO();
 		session.setAttribute("studente", studenteDao.findById(studente.getMatricola()));
