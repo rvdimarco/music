@@ -7,12 +7,9 @@
 <title>Error Page</title>
 </head>
 <body>
-${studente eq null ? "Attenzione: violazione di sicurezza!<br/><br/>..." : ""}
-<%if(session.getAttribute("studente")!=null){%>
 ${messaggio}&nbsp;${pageContext.exception}
-		<form name="indietro" action="ingresso.html">
+		<form name="indietro" action="logout">
 			<input type="submit" value="Torna alla pagina di ingresso"/>
 		</form>
-<%}%>
 </body>
 </html>
