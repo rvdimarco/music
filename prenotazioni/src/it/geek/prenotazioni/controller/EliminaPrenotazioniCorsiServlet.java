@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.Enumeration;
 import java.util.List;
 
+import javax.management.OperationsException;
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.http.HttpServlet;
@@ -62,13 +63,15 @@ public class EliminaPrenotazioniCorsiServlet extends HttpServlet {
 			//richiamo ciclicamente la delete senza transazione:
 			//se dopo una cancellazione qualcosa va male ho eseguito una operazione monca!!
 		
+			/*int i=0;*/ //test transazione
 			while(eli.hasMoreElements()){
 				String s = eli.nextElement();
 				log.debug("param name: "+s+" - param value: "+request.getParameter(s));
 				
 				if(s.contains("corsiDaEliminare")){
+					/*if(i==2)throw new RuntimeException();*/ //test transazione
 					segretario.cancellaPrenotazione(studente, new Corso(Integer.parseInt(request.getParameter(s))));
-					
+					/*i++;*/ //test transazione
 				}
 			}
 		

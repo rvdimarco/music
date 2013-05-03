@@ -7,6 +7,8 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import javax.management.OperationsException;
+
 import org.apache.log4j.Logger;
 
 import it.geek.prenotazioni.dao.PrenotazioneDao;
@@ -70,8 +72,11 @@ public class SegretarioService {
 			
 			//eseguo con un ciclo tutte le delete
 			PrenotazioneDao dao = new PrenotazioneDao();
+			/*int i=0;*/ //test transazione
 			for(Integer id : corsi){
+				/*if(i==2) throw new RuntimeException();*/ //test transazione
 				dao.delete(studente, new Corso(id), connection);
+				/*i++;*/ //test transazione
 			}
 			
 			//se tutto va bene "scolpisco"
