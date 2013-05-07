@@ -7,6 +7,10 @@ public class Autore extends Entity {
 	private String cognome;
 	private String casaDiscografica;
 	
+	public String getDatiAnagrafici(){
+		return nome + " " + cognome;
+	}
+	
 	public String getCasaDiscografica() {
 		return casaDiscografica;
 	}

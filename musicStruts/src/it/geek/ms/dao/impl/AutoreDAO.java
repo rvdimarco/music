@@ -3,12 +3,14 @@ package it.geek.ms.dao.impl;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.Types;
 import java.util.ArrayList;
 import java.util.List;
 
 import org.apache.log4j.Logger;
 
 import it.geek.ms.dao.IDAO;
+import it.geek.ms.exception.BusinessException;
 import it.geek.ms.model.Autore;
 
 public class AutoreDAO implements IDAO<Autore, String> {
@@ -37,29 +39,30 @@ public class AutoreDAO implements IDAO<Autore, String> {
 			
 			rs = ps.executeQuery();
 			
-			Autore a = null;
 			if(rs.next()){
-				a = new Autore();
-				a.setCodiceFiscale(rs.getString("cf"));
-				a.setNome(rs.getString("nome"));
-				a.setCognome(rs.getString("cognome"));
-				a.setCasaDiscografica(rs.getString("casa_discografica"));
+				autore = new Autore();
+				autore.setCodiceFiscale(rs.getString("cf"));
+				autore.setNome(rs.getString("nome"));
+				autore.setCognome(rs.getString("cognome"));
+				autore.setCasaDiscografica(rs.getString("casa_discografica"));
 			}
 			
 		}catch(Exception e){
 			logger.error("errore! "+e);
-			e.printStackTrace();
+			throw new BusinessException(e.getCause()+" - "+e.getMessage()+" ["+e+"]");
 			
 		}finally{
 			try {
 				rs.close();
-			} catch (Exception e2) {
+			} catch (Exception e) {
 				logger.error("impossibile chiudere il ResultSet");
+				throw new BusinessException(e.getCause()+" - "+e.getMessage()+" ["+e+"]");
 			}
 			try {
 				ps.close();
-			} catch (Exception e2) {
+			} catch (Exception e) {
 				logger.error("impossibile chiudere il PreparedStatement");
+				throw new BusinessException(e.getCause()+" - "+e.getMessage()+" ["+e+"]");
 			}
 		}
 		
@@ -117,6 +120,7 @@ public class AutoreDAO implements IDAO<Autore, String> {
 	}
 
 	@Override
+	//nel modello scelto la delete di un auotore è l'eliminazione del suo legame!!!! (autore gestito come tipologica)
 	public boolean delete(String id, Connection c) {
 		logger.info("AutoreDAO::delete");
 		boolean wasDeleted = false;
@@ -128,13 +132,15 @@ public class AutoreDAO implements IDAO<Autore, String> {
 		PreparedStatement ps = null;
 		
 		StringBuilder sb = new StringBuilder();
-		sb.append("DELETE ");
-		sb.append("FROM autori ");
-		sb.append("WHERE cf = ? ");
+		
+		sb.append("UPDATE autori ");
+		sb.append("SET casa_discografica = ? ");
+		sb.append("WHERE cf = ?");
 		
 		try{
 			ps = c.prepareStatement(sb.toString());
-			ps.setString(1, id);
+			ps.setNull(1, Types.VARCHAR);
+			ps.setString(2, id);
 			
 			logger.debug("sql: "+sb.toString());
 			logger.debug("cf = "+id);
@@ -147,13 +153,14 @@ public class AutoreDAO implements IDAO<Autore, String> {
 			
 		}catch(Exception e){
 			logger.error("errore! "+e);
-			e.printStackTrace();
+			throw new BusinessException(e.getCause()+" - "+e.getMessage()+" ["+e+"]");
 			
 		}finally{
 			try {
 				ps.close();
-			} catch (Exception e2) {
+			} catch (Exception e) {
 				logger.error("impossibile chiudere il PreparedStatement");
+				throw new BusinessException(e.getCause()+" - "+e.getMessage()+" ["+e+"]");
 			}
 		}
 		
@@ -161,6 +168,7 @@ public class AutoreDAO implements IDAO<Autore, String> {
 	}
 
 	@Override
+	//nel modello scelto la insert di un auotore è l'inserimento del suo legame!!!! (autore gestito come tipologica)
 	public boolean insert(Autore a, Connection c) {
 		logger.info("AutoreDAO::insert");
 		boolean wasInserted = false;
@@ -172,21 +180,18 @@ public class AutoreDAO implements IDAO<Autore, String> {
 		PreparedStatement ps = null;
 		
 		StringBuilder sb = new StringBuilder();
-		sb.append("INSERT INTO autori (cf, nome, cognome, casa_discografica) ");
-		sb.append("VALUES (?,?,?,?)");
+		sb.append("UPDATE autori ");
+		sb.append("SET casa_discografica = ? ");
+		sb.append("WHERE cf = ?");
 		
 		try{
 			ps = c.prepareStatement(sb.toString());
-			ps.setString(1, a.getCodiceFiscale());
-			ps.setString(2, a.getNome());
-			ps.setString(3, a.getCognome());
-			ps.setString(4, a.getCasaDiscografica());
+			ps.setString(1, a.getCasaDiscografica());
+			ps.setString(2, a.getCodiceFiscale());
 			
 			logger.debug("sql: "+sb.toString());
-			logger.debug("cf = "+a.getCodiceFiscale());
-			logger.debug("nome = "+a.getNome());
-			logger.debug("cognome = "+a.getCognome());
 			logger.debug("casa_discografica = "+a.getCasaDiscografica());
+			logger.debug("cf = "+a.getCodiceFiscale());
 			
 			int inserted = ps.executeUpdate();
 			
@@ -196,13 +201,14 @@ public class AutoreDAO implements IDAO<Autore, String> {
 			
 		}catch(Exception e){
 			logger.error("errore! "+e);
-			e.printStackTrace();
+			throw new BusinessException(e.getCause()+" - "+e.getMessage()+" ["+e+"]");
 			
 		}finally{
 			try {
 				ps.close();
-			} catch (Exception e2) {
+			} catch (Exception e) {
 				logger.error("impossibile chiudere il PreparedStatement");
+				throw new BusinessException(e.getCause()+" - "+e.getMessage()+" ["+e+"]");
 			}
 		}
 		
@@ -210,6 +216,7 @@ public class AutoreDAO implements IDAO<Autore, String> {
 	}
 
 	@Override
+	//nell'ottica del modello scelto, questa operazione è da riprogettare...
 	public boolean update(Autore a, Connection c) {
 		logger.info("AutoreDAO::update");
 		boolean wasUpdated = false;
@@ -264,13 +271,14 @@ public class AutoreDAO implements IDAO<Autore, String> {
 			
 		}catch(Exception e){
 			logger.error("errore! "+e);
-			e.printStackTrace();
+			throw new BusinessException(e.getCause()+" - "+e.getMessage()+" ["+e+"]");
 			
 		}finally{
 			try {
 				ps.close();
-			} catch (Exception e2) {
+			} catch (Exception e) {
 				logger.error("impossibile chiudere il PreparedStatement");
+				throw new BusinessException(e.getCause()+" - "+e.getMessage()+" ["+e+"]");
 			}
 		}
 		
@@ -336,18 +344,20 @@ public class AutoreDAO implements IDAO<Autore, String> {
 			
 		}catch(Exception e){
 			logger.error("errore! "+e);
-			e.printStackTrace();
+			throw new BusinessException(e.getCause()+" - "+e.getMessage()+" ["+e+"]");
 			
 		}finally{
 			try {
 				rs.close();
-			} catch (Exception e2) {
+			} catch (Exception e) {
 				logger.error("impossibile chiudere il ResultSet");
+				throw new BusinessException(e.getCause()+" - "+e.getMessage()+" ["+e+"]");
 			}
 			try {
 				ps.close();
-			} catch (Exception e2) {
+			} catch (Exception e) {
 				logger.error("impossibile chiudere il PreparedStatement");
+				throw new BusinessException(e.getCause()+" - "+e.getMessage()+" ["+e+"]");
 			}
 		}
 		

@@ -7,6 +7,7 @@ import java.util.List;
 import org.apache.log4j.Logger;
 
 import it.geek.ms.dao.IDAO;
+import it.geek.ms.exception.BusinessException;
 import it.geek.ms.factory.DaoFactory;
 import it.geek.ms.model.CasaDiscografica;
 import it.geek.ms.model.Utente;
@@ -15,11 +16,11 @@ import it.geek.ms.util.MyJNDIConnection;
 
 public class CasaDiscograficaService implements Service<CasaDiscografica, String> {
 
-	private Logger logger = Logger.getLogger(CasaDiscograficaService.class);
+	private Logger log = Logger.getLogger(CasaDiscograficaService.class);
 	
 	@Override
 	public CasaDiscografica get(String id) {
-		logger.info("CasaDiscograficaService::get(k)");
+		log.info("CasaDiscograficaService::get(k)");
 		
 		CasaDiscografica casa = null;
 		Connection conn = null;
@@ -29,14 +30,17 @@ public class CasaDiscograficaService implements Service<CasaDiscografica, String
 			conn = MyJNDIConnection.getConnection();
 			IDAO dao = DaoFactory.getCasaDiscograficaDAO();
 			casa = (CasaDiscografica)dao.findById(id, conn);
+			log.debug("casa discografica estratta: "+casa);
 			
 		} catch (Exception e) {
-			logger.error("errore inaspettato: "+e);
+			log.error("errore inaspettato: "+e);
+			throw new BusinessException(e.getMessage());
 		} finally{
 			try {
 				conn.close();
 			} catch (SQLException e) {
-				logger.error("impossibile chiudere la connessione: "+e);
+				log.error("impossibile chiudere la connessione: "+e);
+				throw new BusinessException(e.getMessage());
 			}
 		}
 		
@@ -45,8 +49,7 @@ public class CasaDiscograficaService implements Service<CasaDiscografica, String
 
 	@Override
 	public List<CasaDiscografica> get(CasaDiscografica c) {
-		// TODO Auto-generated method stub
-		return null;
+		throw new UnsupportedOperationException("operazione non implementata");
 	}
 
 	@Override
@@ -61,12 +64,14 @@ public class CasaDiscograficaService implements Service<CasaDiscografica, String
 			cadili = (List<CasaDiscografica>)dao.findAll(conn);
 			
 		} catch (Exception e) {
-			logger.error("errore inaspettato: "+e);
+			log.error("errore inaspettato: "+e);
+			throw new BusinessException(e.getMessage());
 		} finally{
 			try {
 				conn.close();
 			} catch (SQLException e) {
-				logger.error("impossibile chiudere la connessione: "+e);
+				log.error("impossibile chiudere la connessione: "+e);
+				throw new BusinessException(e.getMessage());
 			}
 		}
 		
@@ -75,19 +80,19 @@ public class CasaDiscograficaService implements Service<CasaDiscografica, String
 
 	@Override
 	public void delete(String k) {
-		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("operazione non implementata");
 		
 	}
 
 	@Override
 	public void save(CasaDiscografica e) {
-		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("operazione non implementata");
 		
 	}
 
 	@Override
 	public void create(CasaDiscografica e) {
-		// TODO Auto-generated method stub
+		throw new UnsupportedOperationException("operazione non implementata");
 		
 	}
 

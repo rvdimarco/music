@@ -1,11 +1,13 @@
 package it.geek.ms.dao.impl;
 
 import it.geek.ms.dao.IDAO;
+import it.geek.ms.exception.BusinessException;
 import it.geek.ms.model.Ruolo;
 import it.geek.ms.model.Utente;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -16,7 +18,7 @@ public class UtenteDAO implements IDAO<Utente, String> {
 	private static Logger logger = Logger.getLogger(UtenteDAO.class);
 
 	@Override
-	public Utente findById(String id, Connection c) {
+	public Utente findById(String id, Connection c)throws SQLException{
 		logger.info("UtenteDAO::findById");
 		Utente ret = null;
 		
@@ -47,19 +49,21 @@ public class UtenteDAO implements IDAO<Utente, String> {
 				r.setDescrizione(rs.getString("descrizione"));
 				ret.setRuolo(r);
 			}
-		}catch(Exception e){
+		}catch(SQLException e){
 			logger.error("errore! "+e);
-			e.printStackTrace();
+			throw e;
 		}finally{
 			try {
 				rs.close();
-			} catch (Exception e2) {
+			} catch (SQLException e2) {
 				logger.error("impossibile chiudere il ResultSet");
+				throw e2;
 			}
 			try {
 				ps.close();
-			} catch (Exception e2) {
+			} catch (SQLException e2) {
 				logger.error("impossibile chiudere il PreparedStatement");
+				throw e2;
 			}
 		}
 		
@@ -67,7 +71,7 @@ public class UtenteDAO implements IDAO<Utente, String> {
 	}
 
 	@Override
-	public List<Utente> findAll(Connection c) {
+	public List<Utente> findAll(Connection c) throws SQLException {
 		logger.info("UtenteDAO::findAll");
 		List<Utente> ret = null;
 		
@@ -100,19 +104,21 @@ public class UtenteDAO implements IDAO<Utente, String> {
 				u.setRuolo(r);
 				ret.add(u);
 			}
-		}catch(Exception e){
+		}catch(SQLException e){
 			logger.error("errore! "+e);
-			e.printStackTrace();
+			throw e;
 		}finally{
 			try {
 				rs.close();
 			} catch (Exception e2) {
 				logger.error("impossibile chiudere il ResultSet");
+				throw e2;
 			}
 			try {
 				ps.close();
 			} catch (Exception e2) {
 				logger.error("impossibile chiudere il PreparedStatement");
+				throw e2;
 			}
 		}
 		
@@ -120,7 +126,7 @@ public class UtenteDAO implements IDAO<Utente, String> {
 	}
 
 	@Override
-	public boolean delete(String id, Connection c) {
+	public boolean delete(String id, Connection c)throws SQLException {
 		logger.info("UtenteDAO::delete");
 		boolean wasDeleted = false;
 		
@@ -148,22 +154,23 @@ public class UtenteDAO implements IDAO<Utente, String> {
 				wasDeleted = true;
 			}
 			
-		}catch(Exception e){
+		}catch(SQLException e){
 			logger.error("errore! "+e);
-			e.printStackTrace();
+			throw e;
 			
 		}finally{
 			try {
 				ps.close();
-			} catch (Exception e2) {
+			} catch (SQLException e2) {
 				logger.error("impossibile chiudere il PreparedStatement");
+				throw e2;
 			}
 		}
 		
 		return wasDeleted;	}
 
 	@Override
-	public boolean insert(Utente u, Connection c) {
+	public boolean insert(Utente u, Connection c) throws SQLException {
 		logger.info("UtenteDAO::insert");
 		boolean wasInserted = false;
 		
@@ -198,22 +205,23 @@ public class UtenteDAO implements IDAO<Utente, String> {
 				wasInserted = true;
 			}
 			
-		}catch(Exception e){
+		}catch(SQLException e){
 			logger.error("errore! "+e);
-			e.printStackTrace();
+			throw e;
 			
 		}finally{
 			try {
 				ps.close();
-			} catch (Exception e2) {
+			} catch (SQLException e2) {
 				logger.error("impossibile chiudere il PreparedStatement");
+				throw e2;
 			}
 		}
 		
 		return wasInserted;	}
 
 	@Override
-	public boolean update(Utente u, Connection c) {
+	public boolean update(Utente u, Connection c) throws SQLException  {
 		logger.info("UtenteDAO::update");
 		boolean wasUpdated = false;
 		
@@ -271,15 +279,16 @@ public class UtenteDAO implements IDAO<Utente, String> {
 				wasUpdated = true;
 			}
 			
-		}catch(Exception e){
+		}catch(SQLException e){
 			logger.error("errore! "+e);
-			e.printStackTrace();
+			throw e;
 			
 		}finally{
 			try {
 				ps.close();
-			} catch (Exception e2) {
+			} catch (SQLException e2) {
 				logger.error("impossibile chiudere il PreparedStatement");
+				throw e2;
 			}
 		}
 		

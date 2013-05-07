@@ -32,11 +32,13 @@ public class UtenteService implements Service<Utente, String> {
 			
 		} catch (Exception e) {
 			logger.error("errore inaspettato: "+e);
+			throw new BusinessException(e.getMessage());
 		} finally{
 			try {
 				conn.close();
 			} catch (SQLException e) {
 				logger.error("impossibile chiudere la connessione: "+e);
+				throw new BusinessException(e.getMessage());
 			}
 		}
 		
@@ -58,11 +60,13 @@ public class UtenteService implements Service<Utente, String> {
 			
 		} catch (Exception e) {
 			logger.error("errore inaspettato: "+e);
+			throw new BusinessException(e.getMessage());
 		} finally{
 			try {
 				conn.close();
 			} catch (SQLException e) {
 				logger.error("impossibile chiudere la connessione: "+e);
+				throw new BusinessException(e.getMessage());
 			}
 		}
 		
@@ -85,11 +89,13 @@ public class UtenteService implements Service<Utente, String> {
 			
 		} catch (Exception e) {
 			logger.error("errore inaspettato: "+e);
+			throw new BusinessException(e.getMessage());
 		} finally{
 			try {
 				conn.close();
 			} catch (SQLException e) {
 				logger.error("impossibile chiudere la connessione: "+e);
+				throw new BusinessException(e.getMessage());
 			}
 		}
 		
@@ -115,11 +121,13 @@ public class UtenteService implements Service<Utente, String> {
 			
 		} catch (Exception e) {
 			logger.error("errore inaspettato: "+e);
+			throw new BusinessException(e.getMessage());
 		} finally{
 			try {
 				conn.close();
 			} catch (SQLException e) {
 				logger.error("impossibile chiudere la connessione: "+e);
+				throw new BusinessException(e.getMessage());
 			}
 		}
 		
@@ -156,11 +164,13 @@ public class UtenteService implements Service<Utente, String> {
 			
 		} catch (Exception e) {
 			logger.error("errore inaspettato: "+e);
+			throw new BusinessException(e.getMessage());
 		} finally{
 			try {
 				conn.close();
 			} catch (SQLException e) {
 				logger.error("impossibile chiudere la connessione: "+e);
+				throw new BusinessException(e.getMessage());
 			}
 		}	
 	}
@@ -195,11 +205,13 @@ public class UtenteService implements Service<Utente, String> {
 			
 		} catch (Exception e) {
 			logger.error("errore inaspettato: "+e);
+			throw new BusinessException(e.getMessage());
 		} finally{
 			try {
 				conn.close();
 			} catch (SQLException e) {
 				logger.error("impossibile chiudere la connessione: "+e);
+				throw new BusinessException(e.getMessage());
 			}
 		}	
 	}
