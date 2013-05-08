@@ -23,7 +23,9 @@
 		<action path="/login" 
 				name="loginForm" 
 				scope="request" 
-				type="it.geek.resid.controller.LoginAction">
+				type="it.geek.resid.controller.LoginAction"
+				validate="true"
+				input="/login.jsp">
 				
 			<forward name="success" path="/home.jsp" />
 			<forward name="failure" path="/error.jsp" />

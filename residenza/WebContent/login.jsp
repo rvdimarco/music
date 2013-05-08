@@ -1,5 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=ISO-8859-1"
     pageEncoding="ISO-8859-1"%>
+<%@ taglib uri="http://struts.apache.org/tags-html" prefix="html" %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 	<head>
@@ -30,6 +31,7 @@
 	<body><center><br/><br/><br/>
 		<b>Effettuare la login:</b>
 		&nbsp;&nbsp;&nbsp;...e&nbsp;se&nbsp;non&nbsp;sei&nbsp;ancora&nbsp;registrato&nbsp;<a href="registrazione.do">registrati&nbsp;ora!</a><br/><br/>
+		<html:errors/>
 		<form name="loginForm" method="POST" action="login.do">
 			username&nbsp;<input type="text" name="username" maxlength="8"/><br/>
 			password&nbsp;<input type="password" name="password" maxlength="8"/><br/>
