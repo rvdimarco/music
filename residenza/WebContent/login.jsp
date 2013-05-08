@@ -28,9 +28,9 @@
 
 		</script>
 	</head>
-	<body><center><br/><br/><br/>
+	<body><center><br/><br/><div style="color:red">${messaggio}</div><br/><br/>
 		<b>Effettuare la login:</b>
-		&nbsp;&nbsp;&nbsp;...e&nbsp;se&nbsp;non&nbsp;sei&nbsp;ancora&nbsp;registrato&nbsp;<a href="registrazione.do">registrati&nbsp;ora!</a><br/><br/>
+		&nbsp;&nbsp;&nbsp;...e&nbsp;se&nbsp;non&nbsp;sei&nbsp;ancora&nbsp;registrato&nbsp;<a href="gestioneUtente.do?method=registrazione">registrati&nbsp;ora!</a><br/><br/>
 		<html:errors/>
 		<form name="loginForm" method="POST" action="login.do">
 			username&nbsp;<input type="text" name="username" maxlength="8"/><br/>

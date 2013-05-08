@@ -28,17 +28,17 @@
 				input="/login.jsp">
 				
 			<forward name="success" path="/home.jsp" />
-			<forward name="failure" path="/error.jsp" />
+			<forward name="failure" path="/login.jsp" />
 			
 		</action>
 		
-		<action path="/registrazione"
+		<action path="/gestioneUtente"
 				name="utenteForm"
 				scope="request"
 				type="it.geek.resid.controller.GestioneUtenteAction"
 				parameter="method">
 				
-			<forward name="success" path="/home.jsp" />
+			<forward name="registrazione" path="/registrazione.jsp" />
 			<forward name="failure" path="/error.jsp" />
 			
 		</action>

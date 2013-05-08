@@ -1,4 +1,4 @@
-package it.geek.resid.controller;
+package it.geek.resid.sp.controller;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

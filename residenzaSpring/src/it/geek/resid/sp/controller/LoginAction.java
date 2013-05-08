@@ -1,8 +1,9 @@
-package it.geek.resid.controller;
+package it.geek.resid.sp.controller;
 
-import it.geek.resid.form.LoginForm;
-import it.geek.resid.model.Utente;
-import it.geek.resid.service.UtenteService;
+import it.geek.resid.sp.dao.UtenteDAO;
+import it.geek.resid.sp.form.LoginForm;
+import it.geek.resid.sp.pojo.Utente;
+import it.geek.resid.sp.service.UtenteService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;

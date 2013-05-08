@@ -1,7 +1,7 @@
-package it.geek.resid.form;
+package it.geek.resid.sp.form;
 
-import it.geek.resid.model.Ruolo;
-import it.geek.resid.util.Collezioni;
+import it.geek.resid.sp.pojo.Ruolo;
+import it.geek.resid.sp.util.Collezioni;
 
 import java.util.List;
 
