@@ -4,19 +4,17 @@ package it.geek.resid.sp.util;
 import it.geek.resid.sp.exception.BusinessException;
 
 import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.SQLException;
-
-import javax.naming.InitialContext;
-import javax.naming.NamingException;
-import javax.sql.DataSource;
 
 import org.apache.log4j.Logger;
 
-public class MyJNDIConnection {
+public class MyJDBCConnection {
 	
-	private static Logger log = Logger.getLogger(MyJNDIConnection.class);
+	private static Logger log = Logger.getLogger(MyJDBCConnection.class);
 	
-	private static String resource_str = "java:/comp/env/jdbc/ResidenzaDB";
+	private static String driver_class = "com.mysql.jdbc.Driver";
+	private static String resource_str = "jdbc:mysql://localhost:3306/geografia?user=root&password=root";
 	
 	public static Connection getConnection(){
 		
@@ -24,12 +22,11 @@ public class MyJNDIConnection {
 			
 			try {
 				
-				InitialContext cxt = new InitialContext();
-				DataSource ds = (DataSource) cxt.lookup( resource_str );
-				connection = ds.getConnection();
+				Class.forName(driver_class);
+				connection = DriverManager.getConnection(resource_str);
 
 				
-			} catch (NamingException e) {
+			} catch (ClassNotFoundException e) {
 				log.error("non ho trovato la risorsa!");
 				throw new BusinessException(e);
 			} catch (SQLException e) {
@@ -37,7 +34,7 @@ public class MyJNDIConnection {
 				throw new BusinessException(e);
 			}	
 			
-			log.info("using JNDI connection");
+			log.info("using JDBC connection");
 			return connection;
 	} 
 	

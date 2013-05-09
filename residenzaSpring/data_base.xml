@@ -1,0 +1,14 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<Utente>
+	<username>condor</username>
+	<password>ande</password>
+	<nome>Miguel</nome>
+	<cognome>Rocha</cognome>
+	<dataNascita>15/08/2000</dataNascita>
+	<Ruolo>
+		<codice>4</codice>
+		<descrizione>ospite</descrizione>
+		<attivo>1</attivo>
+	</Ruolo>
+	<dataRegistrazione>10/05/2013</dataRegistrazione>
+</Utente>

@@ -10,22 +10,13 @@
 	http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
 
 
-	<bean id="utenteService" class="it.geek.resid.sp.service.UtenteServiceImpl">
+	<bean id="utenteservice" class="it.geek.resid.sp.service.UtenteServiceImpl">
 		<property name="utenteDAO">
-			<ref bean="utenteDao"></ref>
+			<ref bean="utentedao"></ref>
 		</property>
 	</bean>
 
-	<bean id="utenteDao" class="it.geek.resid.sp.dao.UtenteDAOImpl">
-		<property name="connection">
-			<ref bean="myConnection"></ref>
-		</property>
-	</bean>
-
-	<bean id="myConnection" class="it.geek.resid.sp.util.MyJNDIConnection"
-		factory-method="getConnection">
-	</bean>
-
+	<bean id="utentedao" class="it.geek.resid.sp.dao.UtenteDAOImpl"/>
 
 </beans>
 

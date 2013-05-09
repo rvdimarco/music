@@ -99,4 +99,14 @@ public class UtenteForm extends ActionForm {
 		this.confirmPassword = confirmPassword;
 	}
 
+	@Override
+	public String toString() {
+		return "UtenteForm [method=" + method + ", username=" + username
+				+ ", password=" + password + ", confirmPassword="
+				+ confirmPassword + ", nome=" + nome + ", cognome=" + cognome
+				+ ", dataNascita=" + dataNascita + ", dataRegistrazione="
+				+ dataRegistrazione + ", ruolo=" + ruolo + ", listaRuoli="
+				+ listaRuoli + "]";
+	}
+
 }
