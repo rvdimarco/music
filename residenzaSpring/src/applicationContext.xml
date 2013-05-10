@@ -16,7 +16,7 @@
 		</property>
 	</bean>
 
-	<bean id="utentedao" class="it.geek.resid.sp.dao.UtenteDAOImpl"/>
+	<bean id="utentedao" class="it.geek.resid.sp.dao.UtenteDAOImplB"/>
 
 </beans>
 

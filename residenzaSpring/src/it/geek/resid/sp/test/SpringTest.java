@@ -7,7 +7,7 @@ public class SpringTest {
 
 	public static void main(String[] args) {
 
-		String username = "admin";
+		String username = "condor";
 		Utente u = ServiceFactory.getUtenteService().get(username);
 		System.out.println();
 		System.out.println(u);
