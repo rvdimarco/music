@@ -10,7 +10,10 @@
 				   type="it.geek.resid.form.LoginForm" />
 				   
 		<form-bean name="utenteForm"
-				   type="it.geek.resid.form.UtenteForm" />		   
+				   type="it.geek.resid.form.UtenteForm" />
+				   
+		<form-bean name="cittadinoForm"
+				   type="it.geek.resid.form.CittadinoForm" />		   
 				   
 	</form-beans>
 
@@ -39,6 +42,19 @@
 				parameter="method">
 				
 			<forward name="registrazione" path="/registrazione.jsp" />
+			<forward name="failure" path="/error.jsp" />
+			
+		</action>
+		
+				<action path="/gestioneCittadino"
+				name="cittadinoForm"
+				scope="request"
+				type="it.geek.resid.controller.GestioneCittadinoAction"
+				parameter="method">
+				
+			<forward name="cambioResidenza" path="/cambioResidenza.jsp" />
+			<forward name="anagraficaCittadini" path="/anagraficaCittadini.jsp" />
+			<forward name="statistichePage" path="/statistiche.jsp" />
 			<forward name="failure" path="/error.jsp" />
 			
 		</action>

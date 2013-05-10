@@ -68,5 +68,14 @@ public class GestioneUtenteAction extends DispatchAction {
 		
 		return mapping.findForward("registrazione");
 	}
+	
+	public ActionForward list(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+					throws Exception{
+		log.debug("list");
 
+		
+		return mapping.findForward("listaUtenti");
+	}
+	
 }

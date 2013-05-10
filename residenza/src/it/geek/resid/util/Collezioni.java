@@ -10,6 +10,10 @@ import org.apache.struts.util.LabelValueBean;
 public class Collezioni {
 	
 	public static List<LabelValueBean> getOptions(String tab){
+		return getOptionsFiltered(tab,null,null);
+	}
+	
+	public static List<LabelValueBean> getOptionsFiltered(String tab, String whereColumn, Integer whereValue){
 		
 		Connection c = null;
 		PreparedStatement ps = null;
@@ -22,13 +26,20 @@ public class Collezioni {
 		try{
 			c = MyJNDIConnection.getConnection();
 			String sql = "SELECT * FROM " + tab;
+			if(whereColumn!=null && whereValue!=null){
+				sql+=" WHERE "+whereColumn+"=?";
+			}
 			ps = c.prepareStatement(sql);
+			if(whereColumn!=null && whereValue!=null){
+				ps.setInt(1, whereValue);
+			}
 			rs = ps.executeQuery();
 			
+			LabelValueBean l = null;
 			while(rs.next()){
 				String value = rs.getString(1);//codice
 				String label = rs.getString(2);//descrizione
-				LabelValueBean l = new LabelValueBean(label,value);
+				l = new LabelValueBean(label,value);
 				lis.add(l);
 			}
 			

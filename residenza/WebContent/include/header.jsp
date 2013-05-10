@@ -8,5 +8,6 @@
 
 <center>
 Sessione&nbsp;di&nbsp;lavoro&nbsp;di&nbsp;${utenteSession.nome}&nbsp;${utenteSession.cognome}&nbsp;(ruolo:&nbsp;${utenteSession.ruolo.descrizione})
-<a href="logout.do">logout</a>
+&nbsp;&nbsp;<a href="logout.do">logout</a>
+&nbsp;&nbsp;<a href="home.jsp">home</a>
 </center>
