@@ -3,7 +3,6 @@ package it.geek.resid.service;
 import it.geek.resid.dao.CittadinoDAO;
 import it.geek.resid.exception.BusinessException;
 import it.geek.resid.model.Cittadino;
-import it.geek.resid.model.Utente;
 import it.geek.resid.util.MyJNDIConnection;
 
 import java.sql.Connection;
@@ -41,6 +40,45 @@ public class CittadinoService {
 		}
 		
 		return cittadini;
+	}
+	
+	public void save(Cittadino c) {
+		logger.info("save");
+		
+		Connection conn = null;
+		
+		try {
+			
+			conn = MyJNDIConnection.getConnection();
+			CittadinoDAO dao = new CittadinoDAO();
+			
+			if(c == null || c.getCodiceFiscale()==null){
+				throw new BusinessException("cittadino non identificabile...");
+			}
+			
+			Cittadino cf = (Cittadino)dao.findById(c.getCodiceFiscale(), conn);
+			boolean wasSaved = false;
+			
+			if(cf==null){
+				throw new BusinessException("cittadino non trovato!");
+				
+			}else{
+				wasSaved = dao.update(c,conn);
+			}
+			
+			if(!wasSaved){
+				throw new BusinessException("non è stato possibile modificare il cittadino...");
+			}
+			
+		} catch (Exception e) {
+			logger.error("errore inaspettato: "+e);
+		} finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("impossibile chiudere la connessione: "+e);
+			}
+		}
 	}
 	
 }

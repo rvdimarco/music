@@ -6,6 +6,7 @@ public class Cittadino {
 	private String nominativo;
 	private String impiego;
 	private String residenza;
+	private Integer codCitta;
 	
 	public String getResidenza() {
 		return residenza;
@@ -34,8 +35,14 @@ public class Cittadino {
 	@Override
 	public String toString() {
 		return "Cittadino [codiceFiscale=" + codiceFiscale + ", nominativo="
-				+ nominativo + ", impiego=" + impiego + ", residenza="
+				+ nominativo + ", impiego=" + impiego + ", codCitta=" + codCitta + ", residenza="
 				+ residenza + "]";
+	}
+	public Integer getCodCitta() {
+		return codCitta;
+	}
+	public void setCodCitta(Integer codCitta) {
+		this.codCitta = codCitta;
 	}
 	
 }

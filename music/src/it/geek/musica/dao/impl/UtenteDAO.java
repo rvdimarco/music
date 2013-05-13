@@ -242,7 +242,7 @@ public class UtenteDAO implements IDAO<Utente, String> {
 			sb.append("casa_discografica = ?,");
 		}
 		sb.deleteCharAt(sb.lastIndexOf(","));
-		sb.append("WHERE username = ?");
+		sb.append(" WHERE username = ?");
 		
 		try{
 			ps = c.prepareStatement(sb.toString());

@@ -32,7 +32,7 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
   	<td colspan="2" height="20%"><jsp:include flush="true" page="include/header.jsp" /></td></tr>
   	<tr>
   	<td width="15%"><jsp:include flush="true" page="include/menu.jsp" /></td>
-  	<td width="85%"><jsp:include flush="true" page="include/bodyStatistiche.jsp" /></td></tr>
+  	<td width="85%"><jsp:include flush="true" page="include/bodyListaUtenti.jsp" /></td></tr>
   	
   	</table>      	
     

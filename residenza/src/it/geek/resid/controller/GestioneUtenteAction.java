@@ -3,9 +3,11 @@ package it.geek.resid.controller;
 import java.text.DateFormat;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.List;
 
 import it.geek.resid.form.UtenteForm;
 import it.geek.resid.model.Utente;
+import it.geek.resid.service.UtenteService;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -74,6 +76,8 @@ public class GestioneUtenteAction extends DispatchAction {
 					throws Exception{
 		log.debug("list");
 
+		List<Utente> ulist = new UtenteService().getAll();
+		request.setAttribute("ulist", ulist);
 		
 		return mapping.findForward("listaUtenti");
 	}

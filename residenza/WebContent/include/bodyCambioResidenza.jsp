@@ -19,7 +19,7 @@
 				</html:select>
 			</td>
 		</tr>
-		<c:if test="${not empty cittadinoForm.codRegione}">
+		<c:if test="${not empty cittadinoForm.codRegione and cittadinoForm.codRegione ne ''}">
 		<tr>
 			<td>Provincia:</td>
 			<td>
@@ -29,7 +29,7 @@
 			</td>
 		</tr>
 		</c:if>
-		<c:if test="${not empty cittadinoForm.codProvincia}">
+		<c:if test="${not empty cittadinoForm.codProvincia and cittadinoForm.codProvincia ne '' and cittadinoForm.codRegione ne ''}">
 		<tr>
 			<td>Citta:</td>
 			<td>
@@ -51,7 +51,7 @@
 		</tr>
 		<c:forEach var="cittadino" items="${cittadini}">
 		<tr>
-			<td><html:radio property="codFis" value="cittadino.codiceFiscale" onclick="document.forms['residenzaForm'].method.value=update;"></html:radio></td>
+			<td><html:radio property="codiceFiscale" value="${cittadino.codiceFiscale}"></html:radio></td>
 			<td>${cittadino.codiceFiscale}</td>
 			<td>${cittadino.nominativo}</td>
 			<td>${cittadino.impiego}</td>
@@ -59,7 +59,6 @@
 		</tr>
 		</c:forEach>
 	</table>
-	${test}
-	<html:submit value="invia" onclick="alert(document.forms['updateForm'].method.value);"></html:submit>
+	<html:submit value="invia"></html:submit>
 	</html:form>
 </center>

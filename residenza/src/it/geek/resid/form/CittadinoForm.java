@@ -10,7 +10,7 @@ import org.apache.struts.util.LabelValueBean;
 public class CittadinoForm extends ActionForm {
 
 	private String method;
-	private String codFis;
+	private String codiceFiscale;
 	private Integer codRegione;
 	private Integer codProvincia;
 	private Integer codCitta;
@@ -65,10 +65,10 @@ public class CittadinoForm extends ActionForm {
 	public void setCodCitta(Integer codCitta) {
 		this.codCitta = codCitta;
 	}
-	public String getCodFis() {
-		return codFis;
+	public String getCodiceFiscale() {
+		return codiceFiscale;
 	}
-	public void setCodFis(String codFis) {
-		this.codFis = codFis;
+	public void setCodiceFiscale(String codiceFiscale) {
+		this.codiceFiscale = codiceFiscale;
 	}
 }

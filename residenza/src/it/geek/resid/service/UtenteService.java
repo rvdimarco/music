@@ -42,4 +42,31 @@ public class UtenteService {
 		return utente;
 	}
 
+	public List<Utente> getAll() {
+		logger.info("UtenteService::getAll()");
+		
+		List<Utente> utenti = null;
+		Connection conn = null;
+		
+		try {
+			
+			conn = MyJNDIConnection.getConnection();
+			UtenteDAO dao = new UtenteDAO();
+			utenti = dao.findAll(conn);
+			
+		} catch (Exception e) {
+			logger.error("errore inaspettato: "+e);
+			throw new BusinessException(e.getMessage());
+		} finally{
+			try {
+				conn.close();
+			} catch (SQLException e) {
+				logger.error("impossibile chiudere la connessione: "+e);
+				throw new BusinessException(e.getMessage());
+			}
+		}
+		
+		return utenti;
+	}
+	
 }

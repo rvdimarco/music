@@ -35,6 +35,14 @@
 			
 		</action>
 		
+		<action path="/logout" 
+				type="it.geek.resid.controller.LogoutAction">
+				
+			<forward name="success" path="/login.jsp" />
+			<forward name="failure" path="/error.jsp" />
+			
+		</action>
+		
 		<action path="/gestioneUtente"
 				name="utenteForm"
 				scope="request"
@@ -42,6 +50,7 @@
 				parameter="method">
 				
 			<forward name="registrazione" path="/registrazione.jsp" />
+			<forward name="listaUtenti" path="/listaUtenti.jsp" />
 			<forward name="failure" path="/error.jsp" />
 			
 		</action>

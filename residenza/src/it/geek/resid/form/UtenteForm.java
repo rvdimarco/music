@@ -22,6 +22,15 @@ public class UtenteForm extends ActionForm {
 	private Ruolo ruolo = new Ruolo();
 	private List<LabelValueBean> listaRuoli;
 	
+	private String[] utentiSelezionati = {}; 
+	
+	public String[] getUtentiSelezionati() { 
+	  return this.utentiSelezionati; 
+	} 
+	public void setUtentiSelezionati(String[] utentiSelezionati) { 
+	  this.utentiSelezionati = utentiSelezionati; 
+	}
+	
 	public List<LabelValueBean> getListaRuoli() {
 		listaRuoli = Collezioni.getOptions("ruoli");
 		return listaRuoli;
