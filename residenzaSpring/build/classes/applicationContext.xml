@@ -9,7 +9,54 @@
 	http://www.springframework.org/schema/aop 
 	http://www.springframework.org/schema/aop/spring-aop-2.0.xsd">
 
+	<!-- inizio - solo IoC: 
+				  bean dao gestito attraverso lo spring container -->
+	<bean id="udao" class="it.geek.resid.dao.UtenteDAO"/>
+	<!-- fine - solo IoC -->
 
+
+	<!-- inizio - IoC e DI: 
+				  bean dao e service gestiti attraverso lo spring container, 
+				  dao iniettato nel service -->
+	<bean id="cdao" class="it.geek.resid.dao.CittadinoDAO"/>
+				  
+	<bean id="cservice" class="it.geek.resid.service.CittadinoService">
+		<property name="cittadinoDAO">
+			<ref bean="cdao"></ref>
+		</property>
+	</bean>
+	<!-- fine - IoC e DI -->
+	
+	
+	<!-- inizio - IoC, DI e Spring DAO:
+				  bean dataSource, jdbcTemlate, dao e service gestiti attraverso lo spring container,
+				  dataSource iniettato nel jdbcTemplate,
+				  jdbcTemplate iniettato nel dao,
+				  dao iniettato nel service -->
+    <bean id="dataSource" class="org.springframework.jdbc.datasource.DriverManagerDataSource">
+        <property name="driverClassName" value="com.mysql.jdbc.Driver" />
+        <property name="url" value="jdbc:mysql://localhost:3306/geografia" />
+        <property name="username" value="root" />
+        <property name="password" value="root" />
+    </bean>
+ 
+    <bean id="jdbcTemplate" class="org.springframework.jdbc.core.JdbcTemplate">
+        <property name="dataSource" ref="dataSource" />
+    </bean>
+     
+    <bean id="irdao" class="it.geek.resid.dao.InfoRegioneSpringDAO">
+        <property name="jdbcTemplate" ref="jdbcTemplate" />
+    </bean>
+    
+    <bean id="stservice" class="it.geek.resid.service.StatisticheSpringService">
+		<property name="infoRegioneDAO">
+			<ref bean="irdao"></ref>
+		</property>
+	</bean>
+	<!-- fine - IoC, DI e Spring DAO -->
+	
+
+	<!-- inizio primo test: le classi si trovano nel package sp  -->
 	<bean id="utenteservice" class="it.geek.resid.sp.service.UtenteServiceImpl">
 		<property name="utenteDAO">
 			<ref bean="utentedao"></ref>
@@ -17,6 +64,7 @@
 	</bean>
 
 	<bean id="utentedao" class="it.geek.resid.sp.dao.UtenteDAOImplB"/>
+	<!-- fine primo test -->
 
 </beans>
 

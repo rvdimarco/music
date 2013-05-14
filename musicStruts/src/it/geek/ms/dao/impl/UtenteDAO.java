@@ -218,7 +218,9 @@ public class UtenteDAO implements IDAO<Utente, String> {
 			}
 		}
 		
-		return wasInserted;	}
+		return wasInserted;	
+		
+}
 
 	@Override
 	public boolean update(Utente u, Connection c) throws SQLException  {
