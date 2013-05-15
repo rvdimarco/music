@@ -21,6 +21,17 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<!--
 	<link rel="stylesheet" type="text/css" href="styles.css">
 	-->
+	
+	<script type="text/javascript">
+		function controllaBeforeSubmit(nome, valore, nomeForm){
+			if(valore==null || valore==undefined || valore=="" || valore==0 || valore==false){
+				alert(nome+" non valido! ["+valore+"]");
+				return false;
+			}
+			
+			document.forms[nomeForm].submit();
+		}
+	</script>
   </head>
   
   <body><center>

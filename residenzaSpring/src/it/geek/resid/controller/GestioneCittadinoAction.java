@@ -1,9 +1,9 @@
 package it.geek.resid.controller;
 
+import it.geek.resid.exception.BusinessException;
 import it.geek.resid.form.CittadinoForm;
 import it.geek.resid.model.Cittadino;
 import it.geek.resid.model.InfoRegione;
-import it.geek.resid.service.StatisticheService;
 import it.geek.resid.service.ServiceFactory;
 
 import java.util.List;
@@ -70,8 +70,11 @@ public class GestioneCittadinoAction extends DispatchAction {
 		
 		Cittadino c = new Cittadino();
 		BeanUtils.copyProperties(c, cform);
-		
-		ServiceFactory.getCittadinoService().save(c);
+		try {
+			ServiceFactory.getCittadinoService().save(c);
+		} catch (BusinessException e) {
+			request.setAttribute("messaggio",e.getMessage());
+		}
 		
 		List<Cittadino> list = ServiceFactory.getCittadinoService().getAll();
 		request.setAttribute("cittadini", list);

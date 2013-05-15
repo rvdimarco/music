@@ -3,7 +3,7 @@
 <%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
 <center>
-	
+	${messaggio}
 	<html:form styleId="residenzaForm" action="gestioneCittadino.do">
 	<html:hidden property="method" value="residenza"/>
 	<table>
@@ -44,6 +44,8 @@
 	<html:form styleId="updateForm" action="gestioneCittadino.do">
 	<html:hidden property="method" value="update"/>
 	<html:hidden property="codCitta"/>
+	<html:hidden property="codProvincia"/>
+	<html:hidden property="codRegione"/>
 	<table border="1">
 		<tr><td colspan="5"><h3>...per il cittadino che ha richiesto il servizio</h3></td></tr>
 		<tr>
@@ -59,6 +61,6 @@
 		</tr>
 		</c:forEach>
 	</table>
-	<html:submit value="invia"></html:submit>
+	<html:button property="invioButton" value="invia" onclick="controllaBeforeSubmit('codCitta','${cittadinoForm.codCitta}','updateForm');"></html:button>
 	</html:form>
 </center>

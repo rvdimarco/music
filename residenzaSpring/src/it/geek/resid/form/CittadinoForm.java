@@ -4,7 +4,12 @@ import it.geek.resid.util.Collezioni;
 
 import java.util.List;
 
+import javax.servlet.http.HttpServletRequest;
+
+import org.apache.struts.action.ActionErrors;
 import org.apache.struts.action.ActionForm;
+import org.apache.struts.action.ActionMapping;
+import org.apache.struts.action.ActionMessage;
 import org.apache.struts.util.LabelValueBean;
 
 public class CittadinoForm extends ActionForm {
@@ -17,6 +22,7 @@ public class CittadinoForm extends ActionForm {
 	private List<LabelValueBean> listaRegioni;
 	private List<LabelValueBean> listaProvince;
 	private List<LabelValueBean> listaCitta;
+	private String invioButton;
 	
 	public String getMethod() {
 		return method;
@@ -71,4 +77,11 @@ public class CittadinoForm extends ActionForm {
 	public void setCodiceFiscale(String codiceFiscale) {
 		this.codiceFiscale = codiceFiscale;
 	}
+	public String getInvioButton() {
+		return invioButton;
+	}
+	public void setInvioButton(String invioButton) {
+		this.invioButton = invioButton;
+	}
+
 }

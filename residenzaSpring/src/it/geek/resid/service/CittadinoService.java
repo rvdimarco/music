@@ -74,6 +74,8 @@ public class CittadinoService implements CittadinoServiceInterface{
 				throw new BusinessException("non è stato possibile modificare il cittadino...");
 			}
 			
+		} catch(BusinessException e){
+			throw e;
 		} catch (Exception e) {
 			logger.error("errore inaspettato: "+e);
 		} finally{
