@@ -1,11 +1,7 @@
 package it.geek.resid.controller;
 
-import java.text.DateFormat;
-import java.text.SimpleDateFormat;
-import java.util.Date;
 import java.util.List;
 
-import it.geek.resid.dao.DaoFactory;
 import it.geek.resid.form.UtenteForm;
 import it.geek.resid.model.Utente;
 import it.geek.resid.service.ServiceFactory;
@@ -69,9 +65,13 @@ public class GestioneUtenteAction extends DispatchAction {
 			BeanUtils.copyProperties(u, uform);
 			log.debug("utente:"+u);
 			
-			DaoFactory.getUtenteDao().insert(u);
+			//quando utilizzavo solo IoC, senza jdbcTemplate...
+			//DaoFactory.getUtenteDao().insert(u);
 			
-			request.getSession().setAttribute("utenteSession",DaoFactory.getUtenteDao().findById(u.getUsername()));
+			//ora, con jdbcTemplate
+			ServiceFactory.getUtenteService().create(u);
+			
+			request.getSession().setAttribute("utenteSession",ServiceFactory.getUtenteService().get(u.getUsername()));
 			log.debug("...login effettuata correttamente");
 		
 		return mapping.findForward("success");
@@ -82,7 +82,32 @@ public class GestioneUtenteAction extends DispatchAction {
 					throws Exception{
 		log.debug("list");
 
-		List<Utente> ulist = new UtenteService().getAll();
+		List<Utente> ulist = ServiceFactory.getUtenteService().getAll();
+		request.setAttribute("ulist", ulist);
+		
+		return mapping.findForward("listaUtenti");
+	}
+	
+	public ActionForward modifica(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)
+					throws Exception{
+		log.debug("modifica");
+
+		
+		UtenteForm uform = (UtenteForm)form;
+		
+		try {
+			//transazione programmatica
+			//new UtenteService().multiSave(uform.getUtentiSelezionati(), uform.getRuolo());
+			
+			//transazione dichiarativa
+			 ServiceFactory.getUtenteService().multiSave(uform.getUtentiSelezionati(), uform.getRuolo());
+		} catch (Exception e) {
+			request.setAttribute("messaggio", e.getMessage());
+		}
+		
+		
+		List<Utente> ulist = ServiceFactory.getUtenteService().getAll();
 		request.setAttribute("ulist", ulist);
 		
 		return mapping.findForward("listaUtenti");

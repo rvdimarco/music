@@ -19,4 +19,8 @@ public class ServiceFactory {
 		return (StatisticheServiceInterface)ctx.getBean("stservice");
 	}
 	
+	public static UtenteServiceInterface getUtenteService(){
+		return (UtenteServiceInterface)ctx.getBean("uservice");
+	}
+	
 }

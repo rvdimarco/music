@@ -236,5 +236,102 @@ public class UtenteDAO implements UtenteDaoInterface{
 		
 		return ret;
 	}
+
+	@Override
+	public boolean update(Utente u, Connection c) {
+		log.info("UtenteDAO::update");
+		boolean wasUpdated = false;
+		
+		if(u==null || u.getUsername()==null){
+			return wasUpdated;
+		}
+		
+		PreparedStatement ps = null;
+		
+		if(u.getPassword()==null && u.getCognome()==null && u.getNome()==null && u.getRuolo().getCodice()==null && u.getDataNascita()==null && u.getDataRegistrazione()==null ){
+			return wasUpdated;
+		}
+		
+		StringBuilder sb = new StringBuilder();
+		sb.append("UPDATE utenti SET ");
+		if(u.getPassword()!=null){
+			sb.append("password = ?,");
+		}
+		if(u.getCognome()!=null){
+			sb.append("cognome = ?,");
+		}
+		if(u.getNome()!=null){
+			sb.append("nome = ?,");
+		}
+		if(u.getRuolo().getCodice()!=null){
+			sb.append("ruolo = ?,");
+		}
+		if(u.getDataNascita()!=null){
+			sb.append("data_nascita = ?,");
+		}
+		if(u.getDataRegistrazione()!=null){
+			sb.append("data_registrazione = ?,");
+		}
+		sb.deleteCharAt(sb.lastIndexOf(","));
+		sb.append(" WHERE username = ?");
+		
+		try{
+			ps = c.prepareStatement(sb.toString());
+			int i = 0;
+			if(u.getPassword()!=null){
+				ps.setString(++i, u.getPassword());
+			}
+			if(u.getCognome()!=null){
+				ps.setString(++i, u.getCognome());
+			}
+			if(u.getNome()!=null){
+				ps.setString(++i, u.getNome());
+			}
+			if(u.getRuolo().getCodice()!=null){
+				ps.setInt(++i, u.getRuolo().getCodice());
+			}
+			if(u.getDataNascita()!=null){
+				ps.setDate(++i, new java.sql.Date(u.getDataNascita().getTime()));
+			}
+			if(u.getDataRegistrazione()!=null){
+				ps.setDate(++i, new java.sql.Date(u.getDataRegistrazione().getTime()));
+			}
+			ps.setString(++i, u.getUsername());
+			
+			log.debug("sql: "+sb.toString());
+			log.debug("utente = "+u);
+			
+			int updated = ps.executeUpdate();
+			
+			if(updated>0){
+				wasUpdated = true;
+			}
+			
+		}catch(Exception e){
+			log.error("errore! "+e);
+			throw new BusinessException(e);
+		}finally{
+			try {
+				ps.close();
+			} catch (Exception e) {
+				log.error("impossibile chiudere il PreparedStatement");
+				throw new BusinessException(e);
+			}
+		}
+		
+		return wasUpdated;	
+	}
+
+	@Override
+	public List<Utente> findAll() {
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	@Override
+	public boolean update(Utente u) {
+		// TODO Auto-generated method stub
+		return false;
+	}
 	
 }

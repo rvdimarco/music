@@ -9,7 +9,7 @@ public class Utente {
 	private String nome;
 	private String cognome;
 	private Date dataNascita;
-	private Ruolo ruolo;
+	private Ruolo ruolo = new Ruolo();;
 	private Date dataRegistrazione;
 	
 	public String getUsername() {

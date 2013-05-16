@@ -1,11 +1,8 @@
 package it.geek.resid.controller;
 
-import it.geek.resid.dao.DaoFactory;
-import it.geek.resid.dao.UtenteDAO;
-import it.geek.resid.dao.UtenteDaoInterface;
 import it.geek.resid.form.LoginForm;
 import it.geek.resid.model.Utente;
-import it.geek.resid.service.UtenteService;
+import it.geek.resid.service.ServiceFactory;
 
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
@@ -34,8 +31,8 @@ public class LoginAction extends Action {
 		/*UtenteDAO udao = new UtenteDAO();
 		Utente u = udao.findById(lf.getUsername());*/
 		
-		Utente u = DaoFactory.getUtenteDao()
-							 .findById(lf.getUsername());
+		Utente u = ServiceFactory.getUtenteService()
+							     .get(lf.getUsername());
 		
 		if(u==null){
 			request.setAttribute("messaggio", "username '"+lf.getUsername()+"' non corrisponde a nessun utente registrato.");

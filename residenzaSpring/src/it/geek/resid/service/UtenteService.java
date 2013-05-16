@@ -8,10 +8,11 @@ import org.apache.log4j.Logger;
 
 import it.geek.resid.dao.UtenteDAO;
 import it.geek.resid.exception.BusinessException;
+import it.geek.resid.model.Ruolo;
 import it.geek.resid.model.Utente;
 import it.geek.resid.util.MyJNDIConnection;
 
-public class UtenteService {
+public class UtenteService implements UtenteServiceInterface{
 
 	private Logger logger = Logger.getLogger(UtenteService.class);
 	
@@ -67,6 +68,73 @@ public class UtenteService {
 		}
 		
 		return utenti;
+	}
+
+	@Override
+	public void multiSave(String[] ids, Ruolo ruolo) {
+		logger.info("multiSave");
+		Connection connection = MyJNDIConnection.getConnection();
+		
+		try {
+			connection.setAutoCommit(false);
+			
+			//eseguo con un ciclo tutte le delete
+			UtenteDAO dao = new UtenteDAO();
+			Utente u = new Utente();
+			u.setRuolo(ruolo);
+			int i=0; //test transazione
+			for(String id : ids){
+					
+				u.setUsername(id);
+				if(i==2) throw new RuntimeException("test eseguito!"); //test transazione
+				
+				if(id == null){
+					throw new BusinessException("utente non identificabile... [usedrname:"+" id]");
+				}
+				
+				Utente uf = dao.findById(id, connection);
+				boolean wasSaved = false;
+				
+				if(uf==null){
+					throw new BusinessException("utente non trovato! [usedrname:"+" id]");
+					
+				}else{
+					wasSaved = dao.update(u, connection);
+					i++; //test transazione
+				}
+				
+				if(!wasSaved){
+					throw new BusinessException("non è stato possibile modificare l'utente... [usedrname:"+" id]");
+				}
+					
+			}
+			
+			//se tutto va bene "scolpisco"
+			connection.commit();
+			
+		} catch (Exception e) {
+			//se qualcosa è andata male... abbiamo scherzato!
+			try {
+				connection.rollback();
+			} catch (SQLException sqle) {
+				logger.error("impossibile effettuare l'operazione di rollback... "+sqle);
+				throw new BusinessException(e);
+			}
+			
+			logger.error("errore: "+e);
+			throw new BusinessException(e);
+		}finally{
+			try {
+				connection.close();
+			} catch (SQLException e) {
+				logger.error("Impossibile chiudere la Connection "+e);
+				throw new BusinessException(e);
+			}			
+		}		
+	}
+
+	public void create(Utente u){
+		throw new UnsupportedOperationException("operazione non disponibile per questa implementazione....");
 	}
 	
 }

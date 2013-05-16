@@ -2,9 +2,18 @@
 <%@ taglib uri="http://struts.apache.org/tags-bean" prefix="bean" %>
 <%@ taglib uri="http://struts.apache.org/tags-logic" prefix="logic" %>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
-<center>
+<center>${messaggio}
 	<html:form action="gestioneUtente.do">
 	<html:hidden property="method" value="modifica"></html:hidden>
+	<table>
+		<tr><td>Ruolo:</td>
+			<td>
+				<html:select name ="utenteForm" property="ruolo.codice">
+					<html:optionsCollection name="utenteForm" property="listaRuoli"/>
+				</html:select>
+			</td>
+		</tr>
+	</table>
 	<table border="1">
 		<tr><td colspan="7"><h3>Utenti Registrati</h3></td></tr>
 		<tr><td><b>sel.</b></td>
@@ -12,6 +21,7 @@
 			<td><b>DataNascita</b></td><td><b>Ruolo</b></td><td><b>DataRegistrazione</b></td>
 		</tr>
 		<c:forEach var="utente" items="${ulist}">
+		<c:if test="${utente ne utenteSession}">
 		<tr>
 			<td>
 				<html:multibox property="utentiSelezionati">
@@ -25,7 +35,9 @@
 			<td>${utente.ruolo.descrizione}</td>
 			<td>${utente.dataRegistrazioneFormatted}</td>
 		</tr>
+		</c:if>
 		</c:forEach>
 	</table>
+	<html:submit>Modifica il ruolo degli utenti selezionati</html:submit>
 	</html:form>
 </center>

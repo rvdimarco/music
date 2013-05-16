@@ -11,7 +11,6 @@
 <title>Registrazione</title>
 </head>
 <body><center><b><h2>Registrazione</h2></b></center><br/>
-${working}<br/>
 	<html:form action="gestioneUtente.do">
 		<html:hidden property="method" value="eseguiRegistrazione"/>
 		<table>
@@ -27,8 +26,8 @@ ${working}<br/>
 					</html:select>
 				</td>
 			</tr>
-			<tr><td>Password:</td><td><html:text property="password"/></td></tr>
-			<tr><td>Confirm password:</td><td><html:text property="confirmPassword"/></td></tr>
+			<tr><td>Password:</td><td><html:password property="password"/></td></tr>
+			<tr><td>Confirm password:</td><td><html:password property="confirmPassword" onblur="if(this.value!=document.forms['utenteForm'].password.value){alert('digitazione errata');this.value='';document.forms['utenteForm'].password.value=''}"/></td></tr>
 		</table>
 		<html:submit>invia</html:submit>
 	</html:form>
