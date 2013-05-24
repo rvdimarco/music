@@ -60,7 +60,11 @@
 			<td>${cittadino.residenza}</td>
 		</tr>
 		</c:forEach>
+		<tr>
+			<td colspan="5" align="center">
+				<html:button styleClass="btn btn-primary btn-small" property="invioButton" value="invia" onclick="controllaBeforeSubmit('codCitta','${cittadinoForm.codCitta}','updateForm');"></html:button>
+			</td>
+		</tr>
 	</table>
-	<html:button property="invioButton" value="invia" onclick="controllaBeforeSubmit('codCitta','${cittadinoForm.codCitta}','updateForm');"></html:button>
 	</html:form>
 </center>

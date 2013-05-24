@@ -14,7 +14,6 @@ import org.apache.log4j.Logger;
 public class CittadinoService implements CittadinoServiceInterface{
 
 	private Logger logger = Logger.getLogger(CittadinoService.class);
-	
 	private CittadinoDaoInterface cittadinoDAO;
 	
 	public void setCittadinoDAO(CittadinoDaoInterface cittadinoDAO){

@@ -18,9 +18,11 @@ String basePath = request.getScheme()+"://"+request.getServerName()+":"+request.
 	<meta http-equiv="expires" content="0">    
 	<meta http-equiv="keywords" content="keyword1,keyword2,keyword3">
 	<meta http-equiv="description" content="This is my page">
-	<!--
-	<link rel="stylesheet" type="text/css" href="styles.css">
-	-->
+	
+	<!-- import for BOOTSTRAP CSS and JS (minimal) -->
+	<link rel="stylesheet" type="text/css" href="css/bootstrap.min.css"/>
+	<script type="text/javascript" src="js/bootstrap.min.js"></script>	
+	<!-- end import -->
 	
 	<script type="text/javascript">
 		function controllaBeforeSubmit(nome, valore, nomeForm){
