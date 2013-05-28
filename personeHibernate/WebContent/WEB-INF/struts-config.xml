@@ -24,6 +24,9 @@
 				parameter="method">
 				
 			<forward name="list" path="/listaPersone.jsp" />
+			<forward name="insert" path="/insertPersona.jsp" />
+			<forward name="update" path="/updatePersona.jsp" />
+			<forward name="show" path="/showPersona.jsp" />
 			<forward name="failure" path="/error.jsp" />
 			
 		</action>

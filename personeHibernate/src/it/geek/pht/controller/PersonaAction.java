@@ -68,4 +68,108 @@ public class PersonaAction extends DispatchAction implements Constants{
 		return mapping.findForward(forwardName);
 	}
 	
+	public ActionForward showInsert(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)throws Exception{
+		log.debug("showInsert");
+		
+		return mapping.findForward("insert");
+	}
+	public ActionForward insert(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)throws Exception{
+		log.debug("insert");
+		String forwardName = null;
+		
+		try {
+			PersonaForm pf = (PersonaForm)form;
+			Persona p = new Persona();
+			BeanUtils.copyProperties(p, pf);
+			
+			ServiceFactory.getService(PERSONA).save(p);
+			
+			request.setAttribute("messaggio", "inserimento effettuato correttamente");
+			List<Persona> lista = ServiceFactory.getService(ServiceFactory.PERSONA).getAll();
+			request.setAttribute("plist", lista);
+			forwardName = "list";
+			
+		} catch (Exception e) {
+			log.error("errore! "+e);
+			request.setAttribute("messaggio", e.getMessage());
+			forwardName = "insert";
+		}
+		
+		return mapping.findForward(forwardName);
+	}
+	
+	public ActionForward show(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)throws Exception{
+		log.debug("show");
+		
+		String forwardName = null;
+		
+		try {
+			PersonaForm pf = (PersonaForm)form;
+			
+			Persona p = (Persona)ServiceFactory.getService(PERSONA).get(pf.getIdPersona());
+			
+			BeanUtils.copyProperties(pf, p);
+			
+			forwardName = "show";
+			
+		} catch (Exception e) {
+			log.error("errore! "+e);
+			request.setAttribute("messaggio", e.getMessage());
+			forwardName = "failure";
+		}
+		
+		return mapping.findForward(forwardName);
+	}
+	
+	public ActionForward showUpdate(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)throws Exception{
+		log.debug("showUpdate");
+		
+		String forwardName = null;
+		
+		try {
+			PersonaForm pf = (PersonaForm)form;
+			
+			Persona p = (Persona)ServiceFactory.getService(PERSONA).get(pf.getIdPersona());
+			
+			BeanUtils.copyProperties(pf, p);
+			
+			forwardName = "update";
+			
+		} catch (Exception e) {
+			log.error("errore! "+e);
+			request.setAttribute("messaggio", e.getMessage());
+			forwardName = "failure";
+		}
+		
+		return mapping.findForward(forwardName);
+	}
+	public ActionForward update(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)throws Exception{
+		log.debug("update");
+		String forwardName = null;
+		
+		try {
+			PersonaForm pf = (PersonaForm)form;
+			Persona p = new Persona();
+			BeanUtils.copyProperties(p, pf);
+			
+			ServiceFactory.getService(PERSONA).save(p);
+			
+			request.setAttribute("messaggio", "modifica effettuata correttamente");
+			List<Persona> lista = ServiceFactory.getService(ServiceFactory.PERSONA).getAll();
+			request.setAttribute("plist", lista);
+			forwardName = "list";
+			
+		} catch (Exception e) {
+			log.error("errore! "+e);
+			request.setAttribute("messaggio", e.getMessage());
+			forwardName = "update";
+		}
+		
+		return mapping.findForward(forwardName);
+	}
 }

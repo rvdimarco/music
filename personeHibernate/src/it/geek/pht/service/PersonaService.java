@@ -10,6 +10,7 @@ import org.hibernate.Session;
 import org.hibernate.Transaction;
 import org.hibernate.cfg.Configuration;
 import org.hibernate.criterion.Example;
+import org.hibernate.criterion.Restrictions;
 
 public class PersonaService implements Service<Persona, Integer>{
 	
@@ -50,7 +51,7 @@ public class PersonaService implements Service<Persona, Integer>{
 		Session session = null;
 		
 		try {
-			session=new Configuration().configure().buildSessionFactory().getCurrentSession();
+			session=new Configuration().configure().buildSessionFactory().openSession();
 			
 			Criteria criteria = session.createCriteria(Persona.class);
 			criteria.add(Example.create(p));
@@ -79,9 +80,14 @@ public class PersonaService implements Service<Persona, Integer>{
 		Session session = null;
 		
 		try {
-			session=new Configuration().configure().buildSessionFactory().getCurrentSession();
+			session=new Configuration().configure().buildSessionFactory().openSession();
 			
-			persona = (Persona)session.get(Persona.class, id);
+			Criteria criteria = session.createCriteria(Persona.class);
+			criteria.add(Restrictions.idEq(id));
+			persona = (Persona)criteria.uniqueResult();
+			
+			//o più semplicemente...
+			//persona = (Persona)session.get(Persona.class, id);
 			
 		} catch (Exception e) {
 			log.error("errore!"+e);
