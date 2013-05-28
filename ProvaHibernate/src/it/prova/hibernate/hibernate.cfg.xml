@@ -32,7 +32,7 @@
 		</property>
 		<!-- -->
 		
-		 <property name="dialect">
+		<property name="dialect">
 			org.hibernate.dialect.MySQLDialect
 		</property>
 		
