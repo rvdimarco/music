@@ -5,6 +5,7 @@ import it.geek.pht.pojo.Persona;
 import it.geek.pht.service.PersonaService;
 import it.geek.pht.service.ServiceFactory;
 import it.geek.pht.util.Constants;
+import it.geek.pht.util.CustomUtils;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -13,6 +14,9 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import org.apache.commons.beanutils.BeanUtils;
+import org.apache.commons.beanutils.ConvertUtils;
+import org.apache.commons.beanutils.converters.DateConverter;
+import org.apache.commons.beanutils.converters.StringConverter;
 import org.apache.log4j.Logger;
 import org.apache.struts.action.ActionForm;
 import org.apache.struts.action.ActionForward;
@@ -36,7 +40,7 @@ public class PersonaAction extends DispatchAction implements Constants{
 		} catch (Exception e) {
 			log.error("errore! "+e);
 			request.setAttribute("messaggio", e.getMessage());
-			forwardName = "error";
+			forwardName = "failure";
 		}
 		
 		return mapping.findForward(forwardName);
@@ -168,6 +172,32 @@ public class PersonaAction extends DispatchAction implements Constants{
 			log.error("errore! "+e);
 			request.setAttribute("messaggio", e.getMessage());
 			forwardName = "update";
+		}
+		
+		return mapping.findForward(forwardName);
+	}
+	
+	public ActionForward search(ActionMapping mapping, ActionForm form,
+			HttpServletRequest request, HttpServletResponse response)throws Exception{
+		log.debug("search");
+		String forwardName = null;
+		
+		try {
+			PersonaForm pf = (PersonaForm)form;
+			Persona p = new Persona();
+			BeanUtils.copyProperties(p, pf);
+			
+			//nota. l'action form passa stringa vuota, nella persona mi ritrovo stringa vuota... rimedio
+			CustomUtils.setNullWhereNecessary(p, PERSONA);
+			
+			List<Persona> lista = ServiceFactory.getService(PERSONA).getByExample(p);
+			request.setAttribute("plist", lista);
+			forwardName = "list";
+			
+		} catch (Exception e) {
+			log.error("errore! "+e);
+			request.setAttribute("messaggio", e.getMessage());
+			forwardName = "failure";
 		}
 		
 		return mapping.findForward(forwardName);

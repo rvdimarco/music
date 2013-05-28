@@ -4,7 +4,7 @@ import java.io.Serializable;
 
 public class Persona implements Serializable{
 
-	private int idPersona;
+	private Integer idPersona;
 	private String nome;
 	private String email;
 	  
@@ -26,7 +26,10 @@ public class Persona implements Serializable{
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	@Override
+	public String toString() {
+		return "Persona [idPersona=" + idPersona + ", nome=" + nome
+				+ ", email=" + email + "]";
+	}
 	  
-
-	
 }
