@@ -2,6 +2,8 @@ package it.geek.pht.service;
 
 import it.geek.pht.exception.BusinessException;
 import it.geek.pht.pojo.Persona;
+import it.geek.pht.util.HibernateUtil;
+
 import java.util.List;
 
 import org.apache.log4j.Logger;
@@ -23,7 +25,7 @@ public class PersonaService implements Service<Persona, Integer>{
 		Session session = null;
 		
 		try {
-			session=new Configuration().configure().buildSessionFactory().openSession();
+			session = HibernateUtil.getSessionFactory().openSession();
 			
 			Criteria criteria = session.createCriteria(Persona.class);
 			persone = criteria.list();
@@ -51,7 +53,7 @@ public class PersonaService implements Service<Persona, Integer>{
 		Session session = null;
 		
 		try {
-			session=new Configuration().configure().buildSessionFactory().openSession();
+			session = HibernateUtil.getSessionFactory().openSession();
 			
 			Criteria criteria = session.createCriteria(Persona.class);
 			criteria.add(Example.create(p));
@@ -80,7 +82,7 @@ public class PersonaService implements Service<Persona, Integer>{
 		Session session = null;
 		
 		try {
-			session=new Configuration().configure().buildSessionFactory().openSession();
+			session = HibernateUtil.getSessionFactory().openSession();
 			
 			Criteria criteria = session.createCriteria(Persona.class);
 			criteria.add(Restrictions.idEq(id));
@@ -112,7 +114,7 @@ public class PersonaService implements Service<Persona, Integer>{
 		Transaction tx = null;
 		
 		try{
-			session=new Configuration().configure().buildSessionFactory().getCurrentSession();
+			session = HibernateUtil.getSessionFactory().getCurrentSession();
 			tx = session.beginTransaction();
 			
 			session.saveOrUpdate(p);
@@ -129,6 +131,14 @@ public class PersonaService implements Service<Persona, Integer>{
 			}
 			throw new BusinessException(e);
 		}
+		finally{
+			try{
+				session.close();
+			}catch(Exception e){
+				log.error("impossibile chiudere la Session: "+e);
+				throw new BusinessException(e);
+			}			
+		}
 	}
 
 	@Override
@@ -138,7 +148,7 @@ public class PersonaService implements Service<Persona, Integer>{
 		Transaction tx = null;
 		
 		try{
-			session=new Configuration().configure().buildSessionFactory().getCurrentSession();
+			session = HibernateUtil.getSessionFactory().getCurrentSession();
 			tx = session.beginTransaction();
 			
 			p = (Persona)session.get(Persona.class, p.getIdPersona());
@@ -155,6 +165,14 @@ public class PersonaService implements Service<Persona, Integer>{
 				throw new BusinessException(ex);
 			}
 			throw new BusinessException(e);
+		}
+		finally{
+			try{
+				session.close();
+			}catch(Exception e){
+				log.error("impossibile chiudere la Session: "+e);
+				throw new BusinessException(e);
+			}			
 		}
 	}
 	
