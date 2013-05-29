@@ -31,7 +31,7 @@
 			</td>
 		</tr>
 		<tr
-			><td colspan="3"><h3>Anagrafiche</h3></td>
+			><td colspan="3"><h3>Anagrafica Personale</h3></td>
 		</tr>
 		<tr>
 			<td align="center"><b>Nome</b></td>

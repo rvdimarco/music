@@ -11,6 +11,14 @@ public class ServiceFactory implements Constants{
 		case PERSONA:
 			service = new PersonaService();
 			break;
+			
+		case UTENTE:
+			service = new UtenteService();
+			break;
+			
+		case LIBRO:
+			service = new LibroService();
+			break;
 
 		default:
 			break;

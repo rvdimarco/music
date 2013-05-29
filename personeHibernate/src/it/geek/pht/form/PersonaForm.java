@@ -26,5 +26,10 @@ public class PersonaForm extends ActionForm {
 	public void setEmail(String email) {
 		this.email = email;
 	}
+	@Override
+	public String toString() {
+		return "PersonaForm [idPersona=" + idPersona + ", nome=" + nome
+				+ ", email=" + email + "]";
+	}
 	
 }

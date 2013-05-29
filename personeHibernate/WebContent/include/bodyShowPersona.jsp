@@ -9,7 +9,7 @@
 	<html:form action="gestionePersona.do">
 	<html:hidden property="method" value="list"/>
 	<fieldset>
-	<legend>Inserire i dati:</legend>
+	<legend>Dati Persona:</legend>
 	<table>
 		<tr>
 			<td align="left"><b>Codice</b></td>
@@ -25,6 +25,6 @@
 		</tr>
 	</table>
 	</fieldset>
-	<html:submit>Indietro</html:submit>
+	<html:submit styleClass="btn btn-primary">Indietro</html:submit>
 	</html:form>
 </div>

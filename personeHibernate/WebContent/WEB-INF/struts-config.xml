@@ -9,6 +9,9 @@
 		<form-bean name="personaForm"
 				   type="it.geek.pht.form.PersonaForm" />
 				   
+		<form-bean name="bibliotecaForm"
+				   type="it.geek.pht.form.BibliotecaForm" />
+				   
 	</form-beans>
 
 	<global-exceptions></global-exceptions>
@@ -17,9 +20,9 @@
 
 	<action-mappings>
 	
-		<action path="/gestionePersona" 
-				name="personaForm" 
-				scope="request" 
+		<action path="/gestionePersona"
+				name="personaForm"
+				scope="request"
 				type="it.geek.pht.controller.PersonaAction"
 				parameter="method">
 				
@@ -30,6 +33,28 @@
 			<forward name="failure" path="/error.jsp" />
 			
 		</action>
+		
+		<action path="/gestioneBiblioteca" 
+				name="bibliotecaForm" 
+				scope="request" 
+				type="it.geek.pht.controller.BibliotecaAction"
+				parameter="method">
+				
+			<forward name="biblioteca" path="/biblioteca.jsp" />
+			
+			<forward name="listUtenti" path="/listaUtenti.jsp" />
+			<forward name="insertUtente" path="/insertUtente.jsp" />
+			<forward name="updateUtente" path="/updateUtente.jsp" />
+			<forward name="showUtente" path="/showUtente.jsp" />
+			
+			<forward name="listLibri" path="/listaLibri.jsp" />
+			<forward name="insertLibro" path="/insertLibro.jsp" />
+			<forward name="updateLibro" path="/updateLibro.jsp" />
+			<forward name="showLibro" path="/showLibro.jsp" />
+			
+			<forward name="failure" path="/error.jsp" />
+			
+		</action>		
 		
 	</action-mappings>
 

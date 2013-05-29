@@ -21,6 +21,6 @@
 		</tr>
 	</table>
 	</fieldset>
-	<html:submit>Esegui</html:submit>
+	<html:submit styleClass="btn btn-primary">Esegui</html:submit>
 	</html:form>
 </div>

@@ -6,19 +6,18 @@
 			${messaggio}
 		</div>
 	</c:if>
-	<html:form action="gestionePersona.do">
-	<html:hidden property="method" value="update"/>
-	<html:hidden property="idPersona"/>
+	<html:form action="gestioneBiblioteca.do">
+	<html:hidden property="method" value="insertLibro"/>
 	<fieldset>
-	<legend>Modificare i dati:</legend>
+	<legend>Inserire i dati:</legend>
 	<table>
 		<tr>
-			<td align="left"><b>Nome</b></td>
-			<td><html:text property="nome"></html:text></td>
+			<td align="left"><b>Titolo</b></td>
+			<td><html:text property="titolo"></html:text></td>
 		</tr>
 		<tr>
-			<td align="left"><b>e-mail</b></td>
-			<td><html:text property="email"></html:text></td>
+			<td align="left"><b>Pagine</b></td>
+			<td><html:text property="pagine"></html:text></td>
 		</tr>
 	</table>
 	</fieldset>

@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="utf-8"?>
+<!DOCTYPE hibernate-mapping PUBLIC "-//Hibernate/Hibernate Mapping DTD 3.0//EN"
+"http://hibernate.sourceforge.net/hibernate-mapping-3.0.dtd">
+<hibernate-mapping>
+    <class name="it.geek.pht.pojo.Utente" table="utenti" >
+        <id name="idUtente" type="java.lang.Integer">
+            <column name="id_utente" />
+            <generator class="native" />
+        </id>
+        <property name="username" type="java.lang.String">
+            <column name="username" length="45" not-null="true" />
+        </property>
+        <property name="password" type="java.lang.String">
+            <column name="password" length="45" not-null="true" />
+        </property>
+        <property name="nome" type="java.lang.String">
+            <column name="nome" length="45" not-null="true" />
+        </property>
+        <property name="cognome" type="java.lang.String">
+            <column name="cognome" length="45" not-null="true" />
+        </property>
+        
+        <!-- RELAZIONE COMPOSTA -->
+        <set name="libros" inverse="true" fetch="select" lazy="false">
+        <!-- se aggiungessi cascade="delete" agli attributi di <set ogni  -->
+        <!-- volta che cancello un utente vengono cancellati anche i suoi libri -->
+        <!-- ecco a cosa serve il cascade -->
+            <key>
+                <column name="fk_utente" not-null="false" />
+            </key>
+            <one-to-many class="it.geek.pht.pojo.Libro" />
+        </set>
+    </class>
+</hibernate-mapping>

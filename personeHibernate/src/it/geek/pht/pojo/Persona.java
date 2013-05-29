@@ -8,6 +8,9 @@ public class Persona implements Serializable{
 	private String nome;
 	private String email;
 	  
+	public Persona(){
+	}
+	
 	public int getIdPersona() {
 		return idPersona;
 	}
@@ -30,6 +33,26 @@ public class Persona implements Serializable{
 	public String toString() {
 		return "Persona [idPersona=" + idPersona + ", nome=" + nome
 				+ ", email=" + email + "]";
+	}
+	@Override
+	public int hashCode() {
+		final int prime = 31;
+		int result = 1;
+		result = prime * result + idPersona;
+		return result;
+	}
+	@Override
+	public boolean equals(Object obj) {
+		if (this == obj)
+			return true;
+		if (obj == null)
+			return false;
+		if (getClass() != obj.getClass())
+			return false;
+		Persona other = (Persona) obj;
+		if (idPersona != other.idPersona)
+			return false;
+		return true;
 	}
 	  
 }
