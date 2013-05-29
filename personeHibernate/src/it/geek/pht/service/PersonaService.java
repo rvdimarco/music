@@ -39,7 +39,6 @@ public class PersonaService implements Service<Persona, Integer>{
 				session.close();
 			}catch(Exception e){
 				log.error("impossibile chiudere la Session: "+e);
-				throw new BusinessException(e);
 			}
 		}
 		
@@ -68,7 +67,6 @@ public class PersonaService implements Service<Persona, Integer>{
 				session.close();
 			}catch(Exception e){
 				log.error("impossibile chiudere la Session: "+e);
-				throw new BusinessException(e);
 			}
 		}
 		
@@ -100,7 +98,6 @@ public class PersonaService implements Service<Persona, Integer>{
 				session.close();
 			}catch(Exception e){
 				log.error("impossibile chiudere la Session: "+e);
-				throw new BusinessException(e);
 			}
 		}
 		
@@ -136,7 +133,6 @@ public class PersonaService implements Service<Persona, Integer>{
 				session.close();
 			}catch(Exception e){
 				log.error("impossibile chiudere la Session: "+e);
-				throw new BusinessException(e);
 			}			
 		}
 	}
@@ -171,7 +167,6 @@ public class PersonaService implements Service<Persona, Integer>{
 				session.close();
 			}catch(Exception e){
 				log.error("impossibile chiudere la Session: "+e);
-				throw new BusinessException(e);
 			}			
 		}
 	}

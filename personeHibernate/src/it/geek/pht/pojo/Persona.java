@@ -8,10 +8,10 @@ public class Persona implements Serializable{
 	private String nome;
 	private String email;
 	  
-	public int getIdPersona() {
+	public Integer getIdPersona() {
 		return idPersona;
 	}
-	public void setIdPersona(int idPersona) {
+	public void setIdPersona(Integer idPersona) {
 		this.idPersona = idPersona;
 	}
 	public String getNome() {
