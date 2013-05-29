@@ -4,14 +4,14 @@ import java.io.Serializable;
 
 public class Persona implements Serializable{
 
-	private Integer idPersona;
+	private int idPersona;
 	private String nome;
 	private String email;
 	  
-	public Integer getIdPersona() {
+	public int getIdPersona() {
 		return idPersona;
 	}
-	public void setIdPersona(Integer idPersona) {
+	public void setIdPersona(int idPersona) {
 		this.idPersona = idPersona;
 	}
 	public String getNome() {
