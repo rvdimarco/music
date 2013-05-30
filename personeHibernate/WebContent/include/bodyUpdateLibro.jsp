@@ -22,16 +22,17 @@
 		</tr>
 		<tr>
 			<td align="left"><b>disponibile</b></td>
-			<td>${not empty bibliotecaForm.idUtente ? 'NO' : 'SI'}</td>
+			<td><input type="text" readonly="readonly" value="${not empty bibliotecaForm.idUtente ? 'NO' : 'SI'}"/></td>
 		</tr>
 		<c:if test="${not empty bibliotecaForm.idUtente}">
 			<tr>
 				<td align="left"><b>in prestito a</b></td>
-				<td>${bibliotecaForm.cognome}&nbsp;${bibliotecaForm.nome}</td>
+				<td><input type="text" readonly="readonly" value="${bibliotecaForm.cognome}&nbsp;${bibliotecaForm.nome}"/></td>
 			</tr>	
 		</c:if>
 	</table>
 	</fieldset>
 	<html:submit styleClass="btn btn-primary">Esegui</html:submit>
+	<html:link styleClass="btn btn-primary" href="gestioneBiblioteca.do?method=listLibri">Indietro</html:link>
 	</html:form>
 </div>

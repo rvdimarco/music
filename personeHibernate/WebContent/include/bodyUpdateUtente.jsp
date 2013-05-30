@@ -57,8 +57,8 @@
 		</tr>
 		</c:forEach>	
 	</table>
-	
-	</fieldset>
+	</fieldset><br/><br/>
 	<html:submit styleClass="btn btn-primary">Esegui</html:submit>
+	<html:link styleClass="btn btn-primary" href="gestioneBiblioteca.do?method=listUtenti">Indietro</html:link>
 	</html:form>
 </div>

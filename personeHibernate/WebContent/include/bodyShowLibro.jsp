@@ -25,12 +25,12 @@
 		</tr>
 		<tr>
 			<td align="left"><b>disponibile</b></td>
-			<td>${not empty bibliotecaForm.utente ? 'NO' : 'SI'}</td>
+			<td><input type="text" readonly="readonly" value="${not empty bibliotecaForm.utente ? 'NO' : 'SI'}"/></td>
 		</tr>
 		<c:if test="${not empty bibliotecaForm.utente}">
 			<tr>
 				<td align="left"><b>in prestito a</b></td>
-				<td>${bibliotecaForm.utente.cognome}&nbsp;${bibliotecaForm.utente.nome}</td>
+				<td><input type="text" readonly="readonly" value="${bibliotecaForm.utente.cognome}&nbsp;${bibliotecaForm.utente.nome}"/></td>
 			</tr>	
 		</c:if>
 	</table>
