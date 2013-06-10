@@ -1,0 +1,59 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<beans xmlns="http://www.springframework.org/schema/beans"
+       xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans
+       http://www.springframework.org/schema/beans/spring-beans-2.5.xsd">
+
+  <!-- the application context definition for the springmvc DispatcherServlet -->
+
+	<bean name="/home.htm" class="it.geek.inv.controller.InventoryController">
+		 <property name="productManager" ref="productManager"/>
+	</bean>
+	
+  	<bean class="org.springframework.web.servlet.view.ResourceBundleViewResolver">
+		<property name="basename" value="spring-views" />
+	</bean>
+	
+	<bean id="productManager" class="it.geek.inv.service.SimpleProductManager">
+        <property name="products">
+            <list>
+                <ref bean="product1"/>
+                <ref bean="product2"/>
+                <ref bean="product3"/>
+            </list>
+        </property>
+    </bean>
+
+    <bean id="product1" class="it.geek.inv.pojo.Product">
+        <property name="description" value="Lamp"/>
+        <property name="price" value="5.75"/>
+    </bean>
+        
+    <bean id="product2" class="it.geek.inv.pojo.Product">
+        <property name="description" value="Table"/>
+        <property name="price" value="75.25"/>
+    </bean>
+
+    <bean id="product3" class="it.geek.inv.pojo.Product">
+        <property name="description" value="Chair"/>
+        <property name="price" value="22.79"/>
+    </bean>
+
+    <bean id="messageSource" class="org.springframework.context.support.ResourceBundleMessageSource">
+        <property name="basename" value="messages"/>
+    </bean>
+
+	<bean name="/priceincrease.htm" class="it.geek.inv.controller.PriceIncreaseFormController">
+	     <property name="sessionForm" value="true"/>
+	     <property name="commandName" value="priceIncrease"/>
+	     <property name="commandClass" value="it.geek.inv.service.PriceIncrease"/>
+	     <property name="validator">
+	         <bean class="it.geek.inv.service.PriceIncreaseValidator"/>
+	     </property>
+	     <property name="formView" value="priceincreasePage"/>
+	     <property name="successView" value="home.htm"/>
+	     <property name="productManager" ref="productManager"/>
+	 </bean>
+
+</beans>
